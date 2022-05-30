@@ -1,0 +1,44 @@
+@import "../css/themify-icons.css";
+@import "../css/bootstrap.min.css";
+@import "../css/theme.css";
+@import "../css/custom.css";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap");
+
+@import "@splidejs/vue-splide/css";
+
+* {
+	font-family: "Poppins", sans-serif;
+}
+
+p,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Poppins", sans-serif;
+}
+
+.pr-5 {
+	padding-right: 15px;
+}
+.mb-40 {
+	margin-bottom: 40px;
+}
+.text-color-primary {
+	color: #3e13b9;
+}
+.br-15 {
+	border-radius: 15px;
+}
+
+.pt-0 {
+	padding-top: 0;
+}
