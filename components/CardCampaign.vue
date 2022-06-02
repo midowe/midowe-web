@@ -1,5 +1,5 @@
 <template>
-	<NuxtLink :to="`/c/${props.campaign.id}`">
+	<NuxtLink :to="`/${props.campaign.id}`">
 		<div class="card-campaign">
 			<div
 				class="image fadeIn"
@@ -15,6 +15,11 @@
 				}}
 				- Meta: {{ formatMoney(props.campaign.attributes.target_amount) }}
 			</p>
+			<div v-if="props.campaign.attributes.category != undefined">
+				<span class="tag">
+					{{ props.campaign.attributes.category.data.attributes.name }}
+				</span>
+			</div>
 		</div>
 	</NuxtLink>
 </template>
@@ -24,18 +29,28 @@
 	.image {
 		height: 200px;
 		background-size: cover !important;
-		border-radius: 15px;
 	}
 
 	h1 {
-		font-size: 14pt;
+		font-size: 13pt;
 		margin: 10px 0 0 0;
 		line-height: 30px;
+		display: -webkit-box;
+		max-width: 200px;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 
 	p {
 		color: #3f13b9ae;
+		margin-bottom: 10px;
 	}
+}
+.tag {
+	background-color: rgb(236, 236, 236);
+	padding: 5px 10px;
+	color: #404040ae;
 }
 </style>
 

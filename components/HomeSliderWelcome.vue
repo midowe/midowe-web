@@ -6,7 +6,7 @@
 					<div class="row v-align-children">
 						<div class="col-md-7 col-md-offset-1 col-sm-6 text-center mb-xs-24">
 							<img
-								class="cast-shadow mb-40 br-15"
+								class="cast-shadow mb-40"
 								alt=""
 								src="/slide-1-make-a-change.jpeg"
 							/>
@@ -34,22 +34,14 @@
 							</p>
 						</div>
 						<div class="col-md-7 col-sm-6 text-center mb-xs-24">
-							<img
-								class="cast-shadow br-15"
-								alt=""
-								src="/slide-2-ciclone.jpeg"
-							/>
+							<img class="cast-shadow" alt="" src="/slide-2-ciclone.jpeg" />
 						</div>
 					</div>
 				</SplideSlide>
 				<SplideSlide>
 					<div class="row v-align-children">
 						<div class="col-md-7 col-md-offset-1 col-sm-6 text-center mb-xs-24">
-							<img
-								class="cast-shadow br-15"
-								alt=""
-								src="/slide-3-creators.jpeg"
-							/>
+							<img class="cast-shadow" alt="" src="/slide-3-creators.jpeg" />
 						</div>
 						<div class="col-md-3 col-sm-5 pr-5">
 							<h4 class="text-color-primary">
@@ -75,11 +67,7 @@
 							</p>
 						</div>
 						<div class="col-md-7 col-sm-6 text-center mb-xs-24">
-							<img
-								class="cast-shadow br-15"
-								alt=""
-								src="/slide-4-dreams.jpeg"
-							/>
+							<img class="cast-shadow" alt="" src="/slide-4-dreams.jpeg" />
 						</div>
 					</div>
 				</SplideSlide>

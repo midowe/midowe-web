@@ -1,5 +1,8 @@
 <template>
-	<home-slider-welcome />
-	<home-trending />
-	<home-categories />
+	<div>
+		<home-slider-welcome />
+		<home-trending />
+		<home-categories />
+		<home-recent />
+	</div>
 </template>

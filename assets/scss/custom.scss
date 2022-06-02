@@ -1,6 +1,6 @@
 @import "../css/themify-icons.css";
 @import "../css/bootstrap.min.css";
-@import "../css/theme.css";
+@import "../css/theme-purple.css";
 @import "../css/custom.css";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap");
 
@@ -41,4 +41,8 @@ h6 {
 
 .pt-0 {
 	padding-top: 0;
+}
+
+.square-thumbs li {
+	height: auto;
 }

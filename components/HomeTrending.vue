@@ -5,7 +5,7 @@
 				<div class="col-sm-12 text-center">
 					<h4 class="uppercase mb16">Acontecendo agora</h4>
 					<p class="lead">
-						Campanhas de angariação de fundos que vem ganhado destaque.
+						Campanhas de angariação de fundos que vem ganhado destaque
 					</p>
 				</div>
 			</div>

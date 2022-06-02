@@ -3,22 +3,22 @@
 		<nav>
 			<div class="nav-bar text-center">
 				<div class="col-md-2 col-md-push-5 col-sm-12 text-center">
-					<a href="#">
+					<NuxtLink to="/">
 						<img alt="logo" class="image-xxs" src="/midowe.png" />
-					</a>
+					</NuxtLink>
 				</div>
 
 				<div class="col-sm-12 col-md-5 col-md-pull-2 overflow-hidden-xs">
 					<ul class="menu inline-block pull-right">
-						<li><a href="#">Explorar</a></li>
-						<li><a href="#">Sobre Nós</a></li>
+						<li><NuxtLink to="/explore">Explorar</NuxtLink></li>
+						<li><NuxtLink to="/about">Sobre Nós</NuxtLink></li>
 					</ul>
 				</div>
 
 				<div class="col-sm-12 col-md-5 pb-xs-24">
 					<ul class="menu">
-						<li><a href="#">Termos de Uso</a></li>
-						<li><a href="#">Privacidade</a></li>
+						<li><NuxtLink to="/terms">Termos de Uso</NuxtLink></li>
+						<li><NuxtLink to="/privacy">Privacidade</NuxtLink></li>
 					</ul>
 				</div>
 			</div>
