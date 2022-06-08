@@ -4,9 +4,7 @@
 			<div class="row mb64 mb-xs-24">
 				<div class="col-sm-12 text-center">
 					<h4 class="uppercase mb16">Acontecendo agora</h4>
-					<p class="lead">
-						Campanhas de angariação de fundos que vem ganhado destaque
-					</p>
+					<p class="lead">Campanhas que vem ganhado destaque</p>
 				</div>
 			</div>
 			<div class="row">

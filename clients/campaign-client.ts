@@ -7,23 +7,35 @@ export interface Campaign {
 }
 
 interface CampaignAttributes {
+	slug: string;
 	title: string;
 	description: string;
 	target_amount: number;
 	total_amount: number;
+	total_donations: number;
+	target_date: string;
 	images: ImagesData;
 	category: CategoryData;
+	fundraiser: FundraiserData;
 }
 
 interface ImagesData {
-	data: CampaignImages[];
+	data: Image[];
+}
+
+interface ImageData {
+	data: Image;
 }
 
 interface CategoryData {
 	data: Category;
 }
 
-interface CampaignImages {
+interface FundraiserData {
+	data: Fundraiser;
+}
+
+interface Image {
 	id: number;
 	attributes: ImageAttribute;
 }
@@ -31,6 +43,7 @@ interface CampaignImages {
 interface ImageAttribute {
 	name: string;
 	formats: ImageFormats;
+	url: string;
 }
 
 interface ImageFormats {
@@ -42,9 +55,20 @@ interface Image {
 	url: string;
 }
 
+interface Fundraiser {
+	id: number;
+	attributes: FundraiserAttributes;
+}
+
+interface FundraiserAttributes {
+	full_name: string;
+	headline: string;
+	picture: ImageData;
+}
+
 export async function getTrendingCampaigns(): Promise<Campaign[]> {
 	const response = await axiosCms.get(
-		"/campaigns?filters[on_spot][$eq]=true&populate=images"
+		"/campaigns?filters[on_spot][$eq]=true&filters[approved][$eq]=true&populate=images"
 	);
 	const campaigns = response.data.data as Campaign[];
 	return campaigns;
@@ -55,20 +79,16 @@ export async function getCampaigns(
 	pageSize: number = 12
 ): Promise<Campaign[]> {
 	const response = await axiosCms.get(
-		`/campaigns?populate=images,category&pagination[page]=${page}&pagination[pageSize]=${pageSize}&sort[0]=createdAt:desc`
+		`/campaigns?filters[approved][$eq]=true&populate=images,category&pagination[page]=${page}&pagination[pageSize]=${pageSize}&sort[0]=createdAt:desc`
 	);
 	const campaigns = response.data.data as Campaign[];
 	return campaigns;
 }
 
-export async function getCampaignsOfCategory(
-	categoryId: number,
-	page: number = 1,
-	pageSize: number = 3
-): Promise<Campaign[]> {
+export async function getCampaign(slug: any): Promise<Campaign | undefined> {
 	const response = await axiosCms.get(
-		`/campaigns?filters[category][id][$eq]=${categoryId}&populate=images&pagination[page]=${page}&pagination[pageSize]=${pageSize}`
+		`/campaigns?filters[approved][$eq]=true&filters[slug][$eq]=${slug}&populate=images,category,fundraiser,fundraiser.picture`
 	);
 	const campaigns = response.data.data as Campaign[];
-	return campaigns;
+	return campaigns.length > 0 ? campaigns[0] : undefined;
 }

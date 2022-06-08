@@ -754,19 +754,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@splidejs/splide@npm:^4.0.3":
-  version: 4.0.4
-  resolution: "@splidejs/splide@npm:4.0.4"
-  checksum: dbbcbfc48be043663800ac44eda4441c4956b1f0dbbcbb1e1632fc54af41c405c7e5bf44e4e121610212b388d5a0124da4fad1e0a7eece7bf7137fc2ce3eb76b
+"@splidejs/splide@npm:^4.0.6":
+  version: 4.0.6
+  resolution: "@splidejs/splide@npm:4.0.6"
+  checksum: 7df67d50ec6ee540136de8fc7aa50df8f5b54e3408fa6248f3f8fca6b7ac6fae1318ca57dc1e6a31c5bc4d163a9bc5e3b3a04c896c657fd3d54bb862f90479b1
   languageName: node
   linkType: hard
 
-"@splidejs/vue-splide@npm:^0.6.5":
-  version: 0.6.5
-  resolution: "@splidejs/vue-splide@npm:0.6.5"
+"@splidejs/vue-splide@npm:^0.6.6":
+  version: 0.6.6
+  resolution: "@splidejs/vue-splide@npm:0.6.6"
   dependencies:
-    "@splidejs/splide": ^4.0.3
-  checksum: 85e9e3424f829387f0bd3e503f95d01416bffe4a684b91a803d517bd920790afa2012c5316497b315dc7af1f0e4224c77288be640df34065bc71892fb095feed
+    "@splidejs/splide": ^4.0.6
+  checksum: 0eddc04d66d6b1327e408b3b7f9e042a497d6c55905c1e93b2696ec1949c6ee3a51bf726237de8cfb4286a197de449e43c2f8c59cf32e229d5f0cdcee14cb6bb
   languageName: node
   linkType: hard
 
@@ -1226,6 +1226,13 @@ __metadata:
     delegates: ^1.0.0
     readable-stream: ^2.0.6
   checksum: 70d251719c969b2745bfe5ddf3ebaefa846a636e90a6d5212573676af5d6670e15457761d4725731e19cbebdce42c4ab0cbedf23ab047f2a08274985aa10a3c7
+  languageName: node
+  linkType: hard
+
+"argparse@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "argparse@npm:2.0.1"
+  checksum: 83644b56493e89a254bae05702abf3a1101b4fa4d0ca31df1c9985275a5a5bd47b3c27b7fa0b71098d41114d8ca000e6ed90cad764b306f8a503665e4d517ced
   languageName: node
   linkType: hard
 
@@ -2247,6 +2254,13 @@ __metadata:
   version: 2.2.0
   resolution: "entities@npm:2.2.0"
   checksum: 19010dacaf0912c895ea262b4f6128574f9ccf8d4b3b65c7e8334ad0079b3706376360e28d8843ff50a78aabcb8f08f0a32dbfacdc77e47ed77ca08b713669b3
+  languageName: node
+  linkType: hard
+
+"entities@npm:~3.0.1":
+  version: 3.0.1
+  resolution: "entities@npm:3.0.1"
+  checksum: aaf7f12033f0939be91f5161593f853f2da55866db55ccbf72f45430b8977e2b79dbd58c53d0fdd2d00bd7d313b75b0968d09f038df88e308aa97e39f9456572
   languageName: node
   linkType: hard
 
@@ -3558,6 +3572,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"linkify-it@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "linkify-it@npm:4.0.1"
+  dependencies:
+    uc.micro: ^1.0.1
+  checksum: 3e0a29921269c14eb7ac6f5db2da68d4854ea9acca6e9014a323f75f2dd39b197ffab57c1fbd6a906ceb021aad3ee6d7ba7d0181236dd9630ffc452b392f7f71
+  languageName: node
+  linkType: hard
+
 "listhen@npm:^0.2.11":
   version: 0.2.11
   resolution: "listhen@npm:0.2.11"
@@ -3773,10 +3796,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"markdown-it@npm:^13.0.1":
+  version: 13.0.1
+  resolution: "markdown-it@npm:13.0.1"
+  dependencies:
+    argparse: ^2.0.1
+    entities: ~3.0.1
+    linkify-it: ^4.0.1
+    mdurl: ^1.0.1
+    uc.micro: ^1.0.5
+  bin:
+    markdown-it: bin/markdown-it.js
+  checksum: faf5891d389dc433bcf21d3fbff2009beb044b42b117c92f4848899780ca1a2282a209e3ff4672db4afed726a7248304ec473e6e242a7d6498af7113d31974e7
+  languageName: node
+  linkType: hard
+
 "mdn-data@npm:2.0.14":
   version: 2.0.14
   resolution: "mdn-data@npm:2.0.14"
   checksum: 9d0128ed425a89f4cba8f787dca27ad9408b5cb1b220af2d938e2a0629d17d879a34d2cb19318bdb26c3f14c77dd5dfbae67211f5caaf07b61b1f2c5c8c7dc16
+  languageName: node
+  linkType: hard
+
+"mdurl@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "mdurl@npm:1.0.1"
+  checksum: 71731ecba943926bfbf9f9b51e28b5945f9411c4eda80894221b47cc105afa43ba2da820732b436f0798fd3edbbffcd1fc1415843c41a87fea08a41cc1e3d02b
   languageName: node
   linkType: hard
 
@@ -5428,9 +5473,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@splidejs/vue-splide": ^0.6.5
+    "@splidejs/vue-splide": ^0.6.6
     axios: ^0.27.2
     bootstrap: 5.2.0-beta1
+    markdown-it: ^13.0.1
     nuxt: 3.0.0-rc.3
   languageName: unknown
   linkType: soft
@@ -6079,6 +6125,13 @@ __metadata:
   version: 2.12.2
   resolution: "type-fest@npm:2.12.2"
   checksum: ee69676da1f69d2b14bbec28c7b95220a3221ab14093f54bde179c59e185a80470859553eada535ec35d8637a245c2f0efe9d7c99cc46a43f3b4c7ef64db7957
+  languageName: node
+  linkType: hard
+
+"uc.micro@npm:^1.0.1, uc.micro@npm:^1.0.5":
+  version: 1.0.6
+  resolution: "uc.micro@npm:1.0.6"
+  checksum: 6898bb556319a38e9cf175e3628689347bd26fec15fc6b29fa38e0045af63075ff3fea4cf1fdba9db46c9f0cbf07f2348cd8844889dd31ebd288c29fe0d27e7a
   languageName: node
   linkType: hard
 

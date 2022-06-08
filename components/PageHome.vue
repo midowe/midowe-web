@@ -6,3 +6,9 @@
 		<home-recent />
 	</div>
 </template>
+
+<script setup>
+useHead({
+	title: "",
+});
+</script>

@@ -1,24 +1,26 @@
 <template>
-	<NuxtLink :to="`/${props.campaign.id}`">
+	<NuxtLink :to="`/${props.campaign.attributes.slug}`">
 		<div class="card-campaign">
 			<div
 				class="image fadeIn"
 				:style="`background: url('${mainImage}')`"
 			></div>
-			<h1>{{ props.campaign.attributes.title }}</h1>
-			<p>
-				{{
-					formatPercent(
-						props.campaign.attributes.target_amount,
-						props.campaign.attributes.total_amount
-					)
-				}}
-				- Meta: {{ formatMoney(props.campaign.attributes.target_amount) }}
-			</p>
-			<div v-if="props.campaign.attributes.category != undefined">
-				<span class="tag">
-					{{ props.campaign.attributes.category.data.attributes.name }}
-				</span>
+			<div class="text">
+				<h1>{{ props.campaign.attributes.title }}</h1>
+				<p>
+					{{
+						formatPercent(
+							props.campaign.attributes.target_amount,
+							props.campaign.attributes.total_amount
+						)
+					}}
+					- Meta: {{ formatMoney(props.campaign.attributes.target_amount) }}
+				</p>
+				<div v-if="props.campaign.attributes.category != undefined">
+					<span class="tag">
+						{{ props.campaign.attributes.category.data.attributes.name }}
+					</span>
+				</div>
 			</div>
 		</div>
 	</NuxtLink>
@@ -26,13 +28,18 @@
 
 <style lang="scss" scoped>
 .card-campaign {
+	background-color: white;
 	.image {
 		height: 200px;
 		background-size: cover !important;
 	}
 
+	.text {
+		padding: 0 15px 25px 15px;
+	}
+
 	h1 {
-		font-size: 13pt;
+		font-size: 12pt;
 		margin: 10px 0 0 0;
 		line-height: 30px;
 		display: -webkit-box;

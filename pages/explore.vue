@@ -1,5 +1,5 @@
 <template>
-	<h1>Explorar campanhas</h1>
+	<page-explore />
 </template>
 
 <script>

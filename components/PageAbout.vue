@@ -108,3 +108,9 @@
 		</section>
 	</div>
 </template>
+
+<script setup>
+useHead({
+	title: "Sobre nós",
+});
+</script>

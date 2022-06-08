@@ -1,12 +1,12 @@
 <template>
 	<section>
 		<div class="container">
-			<Splide :options="options" aria-label="">
+			<Splide :options="{ rewind: true }" aria-label="My Favorite Images">
 				<SplideSlide>
 					<div class="row v-align-children">
 						<div class="col-md-7 col-md-offset-1 col-sm-6 text-center mb-xs-24">
 							<img
-								class="cast-shadow mb-40"
+								class="cast-shadow"
 								alt=""
 								src="/slide-1-make-a-change.jpeg"
 							/>
@@ -77,23 +77,12 @@
 </template>
 
 <script lang="ts">
-import { Splide, SplideSlide, Options } from "@splidejs/vue-splide";
-import { defineComponent } from "@vue/runtime-core";
+import { Splide, SplideSlide } from "@splidejs/vue-splide";
 
 export default defineComponent({
 	components: {
 		Splide,
 		SplideSlide,
-	},
-
-	setup() {
-		const options: Options = {
-			rewind: true,
-			autoplay: true,
-		};
-		return {
-			options,
-		};
 	},
 });
 </script>
