@@ -23,9 +23,11 @@
 				</div>
 				<div class="col-sm-6 call-to-action">
 					<a class="btn btn-outline" href="#">Partilhar </a>
-					<a class="btn btn-lg btn-filled" href="#"
-						>Apoiar <i class="ti-heart"></i>
-					</a>
+					<NuxtLink :to="`/${campaign.attributes.slug}/donate`">
+						<a class="btn btn-lg btn-filled" href="#"
+							>Apoiar <i class="ti-heart"></i>
+						</a>
+					</NuxtLink>
 				</div>
 			</div>
 			<div class="row stats-area">

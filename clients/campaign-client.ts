@@ -64,6 +64,7 @@ interface FundraiserAttributes {
 	full_name: string;
 	headline: string;
 	picture: ImageData;
+	email: string;
 }
 
 export async function getTrendingCampaigns(): Promise<Campaign[]> {

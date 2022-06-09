@@ -1695,6 +1695,7 @@ input[type="text"],
 button,
 textarea,
 select,
+.form-input,
 input[type="password"] {
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -1722,7 +1723,8 @@ input[type="password"] {
 	cursor: default;
 }
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+.form-input {
 	background: #f5f5f5;
 	border: none;
 	width: 100%;
@@ -1747,7 +1749,8 @@ button.transparent {
 	color: #fff !important	;
 }
 input[type="text"]:focus,
-input[type="password"]:focus {
+input[type="password"]:focus,
+.form-input:focus {
 	outline: 1px solid #ccc;
 }
 textarea {

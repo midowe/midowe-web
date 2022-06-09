@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="worspace">
 		<ThisHeader />
 		<div class="main-container">
 			<slot />
@@ -8,6 +8,14 @@
 	</div>
 </template>
 
+<style scoped>
+.worspace {
+	min-height: 100vh;
+}
+.main-container {
+	min-height: calc(100vh - 146px);
+}
+</style>
 <script setup>
 useHead({
 	titleTemplate: (titleChunk) => {

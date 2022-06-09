@@ -1,5 +1,5 @@
 <template>
-	<PageCampaign />
+	<page-donate />
 </template>
 
 <script>
