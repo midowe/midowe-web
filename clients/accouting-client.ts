@@ -13,15 +13,7 @@ export interface DonationRequest {
 	supporter_message: string;
 }
 
-interface DonationResponse {
-	Success: boolean;
-	ResponseCode: string;
-	ResponseDescription: string;
-}
-
-export async function registerDonation(
-	request: DonationRequest
-): Promise<DonationResponse> {
+export async function registerDonation(request: DonationRequest): Promise<any> {
 	const response = await axiosAccouting.post("/", request);
-	return response.data as DonationResponse;
+	return response.data;
 }

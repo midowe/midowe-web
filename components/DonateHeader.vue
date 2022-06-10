@@ -47,5 +47,42 @@ const campaign = props.campaign;
 
 useHead({
 	title: campaign.attributes.title,
+	meta: [
+		{
+			hid: "og:title",
+			property: "og:title",
+			content: campaign.attributes.title,
+		},
+		{
+			hid: "og:type",
+			property: "og:type",
+			content: "article",
+		},
+		{
+			hid: "og:image",
+			property: "og:image",
+			content: campaign.attributes.images.data[0].attributes.url,
+		},
+		{
+			hid: "og:url",
+			property: "og:url",
+			content: `https://midowe.co.mz/${campaign.attributes.slug}`,
+		},
+		{
+			hid: "twitter:card",
+			name: "twitter:card",
+			content: campaign.attributes.images.data[0].attributes.url,
+		},
+		{
+			hid: "og:description",
+			property: "og:description",
+			content: campaign.attributes.fundraiser.data.attributes.full_name,
+		},
+		{
+			hid: "og:site_name",
+			property: "og:site_name",
+			content: "Midowe",
+		},
+	],
 });
 </script>

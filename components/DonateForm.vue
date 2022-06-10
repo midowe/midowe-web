@@ -10,9 +10,26 @@
 								<li class="selected"><img src="/mpesa-logo.jpeg" alt="" /></li>
 							</ul>
 						</div>
-						<div class="col-sm-9 input-with-label text-left">
+						<div
+							class="col-sm-9 input-with-label text-left"
+							style="margin-bottom: 10px"
+						>
 							<span>Número de telefone (M-Pesa):</span>
-							<input type="text" placeholder="+258:" v-model="state.phone" />
+							<input
+								type="number"
+								class="form-input"
+								placeholder="+258:"
+								required
+								minlength="9"
+								maxlength="9"
+								v-model="state.phone"
+							/>
+							<p class="err-message" v-if="err.errPhone">
+								<small
+									>O número de telefone deve começar com "84" ou "85" e conter 9
+									dígitos</small
+								>
+							</p>
 						</div>
 					</div>
 					<div class="row">
@@ -38,7 +55,11 @@
 						</div>
 					</div>
 
-					<div v-show="state.amount === 0" class="row">
+					<div
+						v-if="state.amount === 0"
+						class="row"
+						style="margin-bottom: 24px"
+					>
 						<div class="col-sm-12 input-with-label text-left">
 							<span>Especifique o valor (MT): </span>
 							<input
@@ -46,26 +67,42 @@
 								class="form-input"
 								v-model="state.customAmout"
 								placeholder=""
+								required
+								min="1"
+								max="125000"
 							/>
 						</div>
 					</div>
 
-					<div v-show="state.receiveRecepit" class="row">
+					<div
+						v-if="state.receiveRecepit"
+						class="row"
+						style="margin-bottom: 24px"
+					>
 						<div class="col-sm-12 input-with-label text-left">
 							<span>Seu e-mail:</span>
-							<input type="text" v-model="state.email" />
+							<input
+								type="email"
+								required
+								class="form-input"
+								v-model="state.email"
+							/>
 						</div>
 					</div>
-					<div v-show="state.receiveRecepit || state.leaveMessage" class="row">
+					<div
+						v-if="state.receiveRecepit || state.leaveMessage"
+						class="row"
+						style="margin-bottom: 24px"
+					>
 						<div class="col-sm-12 input-with-label text-left">
 							<span>Seu nome:</span>
-							<input type="text" v-model="state.fullName" />
+							<input type="text" required v-model="state.fullName" />
 						</div>
 					</div>
-					<div v-show="state.leaveMessage" class="row">
+					<div v-if="state.leaveMessage" class="row">
 						<div class="col-sm-12 input-with-label text-left">
 							<span>Mensagem de apoio a campanha:</span>
-							<textarea v-model="state.message" />
+							<textarea required minlength="3" v-model="state.message" />
 						</div>
 					</div>
 
@@ -97,6 +134,14 @@
 						</div>
 					</div>
 
+					<div class="row" v-if="state.errorMessage !== ''">
+						<div class="col-sm-12">
+							<div class="alert alert-warning" role="alert">
+								<button type="button" class="close" aria-label="Close"></button>
+								{{ state.errorMessage }}
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2 input-with-label text-left">
 							<button class="action-button" type="submit">
@@ -133,6 +178,24 @@
 				número
 				<strong>{{ state.phone }}</strong>
 			</p>
+		</div>
+	</section>
+	<section v-if="state.isSuccess" class="section-success">
+		<div class="col-sm-12 text-center box">
+			<img src="/hands-holding-words-thank-you.png" alt="" />
+
+			<h1>{{ props.campaign.attributes.thank_you_message }}</h1>
+			<h2>
+				Quantia:
+				<span v-show="state.amount !== 0">{{ formatMoney(state.amount) }}</span>
+				<span v-show="state.amount === 0">{{
+					formatMoney(state.customAmout)
+				}}</span>
+			</h2>
+
+			<NuxtLink :to="`/${props.campaign.attributes.slug}`"
+				><a class="btn"> Fechar </a></NuxtLink
+			>
 		</div>
 	</section>
 </template>
@@ -193,7 +256,7 @@ input[type="checkbox"] {
 .section-confirm {
 	position: fixed;
 	z-index: 999;
-	background-color: rgba(255, 255, 255, 0.93);
+	background-color: rgba(0, 0, 0, 0.38);
 	width: 100%;
 	height: 100vh;
 	top: 0;
@@ -214,10 +277,46 @@ input[type="checkbox"] {
 		flex-direction: column;
 		gap: 20px;
 		max-width: 400px;
-		border: 1px solid lightgrey;
 		padding: 40px 20px 20px 20px;
 		border-radius: 3px;
-		box-shadow: 0 0 10px rgb(236, 236, 236);
+		box-shadow: 0 0 10px rgb(137, 137, 137);
+		margin-top: -10%;
+	}
+}
+.section-success {
+	position: fixed;
+	z-index: 999;
+	background-color: rgba(0, 0, 0, 0.38);
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+
+	.box {
+		align-items: center;
+		background-color: #fff;
+		display: flex;
+		flex-direction: column;
+		max-width: 401px;
+		border-radius: 3px;
+		box-shadow: 0 0 10px rgb(137, 137, 137);
+		padding: 0;
+		margin-top: -10%;
+	}
+
+	h1 {
+		font-size: 20px;
+		padding: 10px 20px;
+		line-height: 25px;
+		color: #3e13b9;
+		margin: 25px 0 10px;
+	}
+	h2 {
+		font-size: 15px;
 	}
 }
 .action-button {
@@ -229,6 +328,18 @@ input[type="checkbox"] {
 		color: white;
 		cursor: pointer;
 	}
+}
+.form-input,
+input[type="text"] {
+	margin-bottom: 0;
+}
+.mb-d {
+	margin-bottom: 10px;
+}
+.err-message {
+	margin: 0;
+	padding: 0;
+	color: rgb(197, 18, 8);
 }
 </style>
 
@@ -254,12 +365,41 @@ const state = reactive({
 	fullName: "",
 	message: "",
 	isProcessing: false,
+	isSuccess: false,
 	thirdPartyRef: makeid(6),
+	errorMessage: "",
 });
 
+const err = reactive({
+	errPhone: false,
+	errEmail: false,
+	errName: false,
+	errMessage: false,
+});
+
+function validateInput(): boolean {
+	//reset
+	err.errPhone = false;
+
+	// check if phone is valid
+	const phone = state.phone + "";
+	if (
+		phone.length !== 9 ||
+		(!phone.startsWith("84") && !phone.startsWith("85"))
+	) {
+		err.errPhone = true;
+		return false;
+	}
+
+	return true;
+}
+
 function handleSubmit() {
+	if (!validateInput()) {
+		return;
+	}
 	state.isProcessing = true;
-	//TODO: Form validation
+	state.errorMessage = "";
 
 	const request: DonationRequest = {
 		account_id: props.campaign.attributes.fundraiser.data.attributes.email,
@@ -268,7 +408,7 @@ function handleSubmit() {
 		amount: state.amount === 0 ? `${state.customAmout}` : `${state.amount}`,
 		third_party_reference: state.thirdPartyRef,
 		payment_method: "mpesa",
-		payment_address: state.phone,
+		payment_address: `258${state.phone}`,
 		supporter_email: state.email !== "" ? state.email : null,
 		supporter_name: state.fullName,
 		supporter_message: state.message,
@@ -276,11 +416,18 @@ function handleSubmit() {
 
 	registerDonation(request)
 		.then((data) => {
-			console.log(data);
+			if (data.Success === true || data.payment_response.Success === true) {
+				state.isSuccess = true;
+			} else {
+				state.errorMessage = JSON.stringify(data);
+			}
 		})
 		.catch((err) => {
-			console.log("handle communication and internal server errors");
-			console.log(err);
+			if (err.code === "ERR_BAD_REQUEST") {
+				state.errorMessage = `Transação não processada: ${err.response.data.ResponseDescription}`;
+			} else {
+				state.errorMessage = `${err.code} - ${err.response.data}`;
+			}
 		})
 		.finally(() => {
 			state.isProcessing = false;
