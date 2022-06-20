@@ -1,7 +1,7 @@
 image: golang:1.18.2-buster
 
 variables:
-  TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+  TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
 
 stages:
   - all-lint
@@ -34,6 +34,8 @@ docker-build:
     - export TF_VAR_environment=dev
     - export TF_VAR_container_port=33000
     - export TF_VAR_image_tag=$TAG_COMMIT
+    - export TF_VAR_registry_username=$REGISTRY_USERNAME
+    - export TF_VAR_registry_password=$REGISTRY_PASSWORD
     # Setup SSH
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY_SAFEHOUZE" | tr -d '\r' | ssh-add -

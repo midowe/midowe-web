@@ -19,4 +19,10 @@ terraform {
 provider "docker" {
   host     = "ssh://root@safehouze.xyz:22"
   ssh_opts = ["-o", "StrictHostKeyChecking=no", "-o", "UserKnownHostsFile=/dev/null"]
+
+  registry_auth {
+    address  = "registry.gitlab.com"
+    username = var.registry_username
+    password = var.registry_password
+  }
 }
