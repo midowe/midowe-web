@@ -1,6 +1,11 @@
+data "docker_registry_image" "midowe" {
+  name = var.image_tag
+}
+
 # Pulls the image
 resource "docker_image" "midowe_image" {
-  name = var.image_tag
+  name          = data.docker_registry_image.midowe.name
+  pull_triggers = [data.docker_registry_image.midowe.sha256_digest]
 }
 
 # Create the container
