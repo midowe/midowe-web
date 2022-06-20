@@ -14,30 +14,19 @@ stages:
 default:
   interruptible: true
 
-docker-build:
-  stage: docker-build
-  image: docker:latest
-  services:
-    - docker:dind
-  script:
-    - docker build -t $TAG_COMMIT .
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push $TAG_COMMIT
-  only:
-    - develop
-    - main
-
 .tf-init-dev:
   before_script:
+    - apt-get update && apt-get install software-properties-common curl openssh-client -y
     # Configs and Secrets
     - export TF_VAR_environment=dev
     - export TF_VAR_container_port=33000
     - export TF_VAR_image_tag=$TAG_COMMIT
-    # Setup private key
-    - echo $SSH_PRIVATE_KEY_SAFEHOUZE > .iac/id_rsa.key
-    - chmod 600 .iac/id_rsa.key
+    # Setup SSH
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY_SAFEHOUZE" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
     # Terraform
-    - apt-get update && apt-get install software-properties-common curl -y
     - curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
     - apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
     - apt-get update && apt-get install terraform -y
@@ -48,38 +37,12 @@ docker-build:
       -backend-config="key=midowe-web-dev/terraform.tfstate" \
       -force-copy
 
-dev-iac-lint:
-  stage: all-lint
-  extends: .tf-init-dev
-  script:
-    - terraform -chdir=.iac validate
-  artifacts:
-    paths:
-      - ".iac/.terraform/providers"
-
 dev-iac-plan:
   stage: dev-iac-plan
   extends: .tf-init-dev
   script:
     - terraform -chdir=.iac plan -out=dev-env.tfplan
     - terraform -chdir=.iac show -json dev-env.tfplan > .iac/dev-env.tfplan.json
-  artifacts:
-    paths:
-      - ".out/*"
-      - ".iac/*.json"
-      - ".iac/*.tfplan"
-      - ".iac/.terraform/providers"
-  only:
-    - develop
-    - main
-
-dev-iac-apply:
-  stage: dev-iac-apply
-  extends: .tf-init-dev
-  interruptible: false
-  script:
-    - terraform -chdir=.iac apply -auto-approve dev-env.tfplan
-    - terraform -chdir=.iac output -json > .iac/dev-env.tfoutput.json
   artifacts:
     paths:
       - ".out/*"
