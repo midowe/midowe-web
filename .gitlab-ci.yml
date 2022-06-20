@@ -1,4 +1,4 @@
-image: golang:1.18.2-buster
+image: debian:buster
 
 variables:
   TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
@@ -34,7 +34,7 @@ docker-build:
     # Setup private key
     - echo $SSH_PRIVATE_KEY_SAFEHOUZE > id_rsa.key
     # Terraform
-    - apt-get update && apt-get install software-properties-common -y
+    - apt-get update && apt-get install software-properties-common curl -y
     - curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
     - apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
     - apt-get update && apt-get install terraform -y
