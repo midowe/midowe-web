@@ -6,5 +6,5 @@ export const axiosCms = axios.create({
 
 export const axiosAccouting = axios.create({
 	baseURL:
-		"https://7wgwulf5j77dp6ypbnspcqxteu0rosoi.lambda-url.af-south-1.on.aws",
+		"https://eugqgyjdksk2hoi7rj6b23zjti0grskw.lambda-url.af-south-1.on.aws",
 });

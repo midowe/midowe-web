@@ -7,9 +7,14 @@
 		"preview": "nuxt preview"
 	},
 	"devDependencies": {
-		"nuxt": "3.0.0-rc.3"
+		"nuxt": "3.0.0-rc.3",
+		"sass": "^1.52.3"
 	},
 	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "^6.1.1",
+		"@fortawesome/free-brands-svg-icons": "^6.1.1",
+		"@fortawesome/free-solid-svg-icons": "^6.1.1",
+		"@fortawesome/vue-fontawesome": "latest-3",
 		"@splidejs/vue-splide": "^0.6.6",
 		"axios": "^0.27.2",
 		"bootstrap": "5.2.0-beta1",
