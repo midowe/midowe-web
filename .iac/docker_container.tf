@@ -5,7 +5,7 @@ resource "docker_image" "midowe_image" {
 
 # Create the container
 resource "docker_container" "midowe_container" {
-  image = docker_image.midowe_image
+  image = docker_image.midowe_image.name
   name  = local.resource_prefix
 
   ports {

@@ -34,7 +34,7 @@ docker-build:
     - export TF_VAR_container_port=33000
     - export TF_VAR_image_tag=$TAG_COMMIT
     # Setup private key
-    - echo $SSH_PRIVATE_KEY_SAFEHOUZE > id_rsa.key
+    - echo $SSH_PRIVATE_KEY_SAFEHOUZE > .iac/id_rsa.key
     # Terraform
     - apt-get update && apt-get install software-properties-common curl -y
     - curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
