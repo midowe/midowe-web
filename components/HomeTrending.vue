@@ -7,11 +7,16 @@
 					<p class="lead">Campanhas que vem ganhado destaque</p>
 				</div>
 			</div>
-			<div class="row">
+			<div v-if="state.loading" class="row">
+				<div class="col-sm-12 text-center">
+					<div class="spinner"></div>
+				</div>
+			</div>
+			<div v-if="!state.loading" class="row">
 				<div class="col-sm-12">
 					<div class="lightbox-grid">
 						<ul>
-							<li v-for="campaign in campaigns" :key="campaign.id">
+							<li v-for="campaign in state.campaigns" :key="campaign.id">
 								<card-campaign :campaign="campaign" />
 							</li>
 						</ul>
@@ -22,18 +27,15 @@
 	</section>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { getTrendingCampaigns } from "~~/clients/campaign-client";
 
-export default defineComponent({
-	data() {
-		return {
-			campaigns: [],
-		};
-	},
-	async setup() {
-		const campaigns = await getTrendingCampaigns();
-		return { campaigns };
-	},
+const state = reactive({ loading: true, campaigns: [] });
+
+onMounted(() => {
+	getTrendingCampaigns().then((data) => {
+		state.loading = false;
+		state.campaigns = data;
+	});
 });
 </script>

@@ -31,6 +31,11 @@
 		margin: 0;
 		color: rgb(39, 38, 38);
 		font-size: 11px;
+		display: -webkit-box;
+		max-width: 200px;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 	}
 }
 .card-category:hover {

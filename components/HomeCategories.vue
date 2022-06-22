@@ -9,11 +9,16 @@
 					</p>
 				</div>
 			</div>
-			<div class="row">
+			<div v-if="state.loading" class="row">
+				<div class="col-sm-12 text-center">
+					<div class="spinner"></div>
+				</div>
+			</div>
+			<div v-if="!state.loading" class="row">
 				<div class="col-sm-12">
 					<div class="lightbox-grid square-thumbs">
 						<ul>
-							<li v-for="category in categories" :key="category.id">
+							<li v-for="category in state.categories" :key="category.id">
 								<card-category :category="category" />
 							</li>
 						</ul>
@@ -24,14 +29,15 @@
 	</section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import { getAllCategories } from "~~/clients/category-client";
 
-export default defineComponent({
-	async setup() {
-		const categories = await getAllCategories();
-		return { categories };
-	},
+const state = reactive({ loading: true, categories: [] });
+
+onMounted(() => {
+	getAllCategories().then((data) => {
+		state.loading = false;
+		state.categories = data;
+	});
 });
 </script>

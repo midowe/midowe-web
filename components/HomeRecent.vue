@@ -7,11 +7,16 @@
 					<p class="lead">Campanhas adicionadas recentimente</p>
 				</div>
 			</div>
-			<div class="row">
+			<div v-if="state.loading" class="row">
+				<div class="col-sm-12 text-center">
+					<div class="spinner"></div>
+				</div>
+			</div>
+			<div v-if="!state.loading" class="row">
 				<div class="col-sm-12">
 					<div class="lightbox-grid square-thumbs">
 						<ul>
-							<li v-for="campaign in campaigns" :key="campaign.id">
+							<li v-for="campaign in state.campaigns" :key="campaign.id">
 								<card-campaign :campaign="campaign" />
 							</li>
 						</ul>
@@ -30,14 +35,21 @@
 	</section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<style>
+.lightbox-grid ul {
+	margin-bottom: 0;
+}
+</style>
+
+<script lang="ts" setup>
 import { getCampaigns } from "~~/clients/campaign-client";
 
-export default defineComponent({
-	async setup() {
-		const campaigns = await getCampaigns();
-		return { campaigns };
-	},
+const state = reactive({ loading: true, campaigns: [] });
+
+onMounted(() => {
+	getCampaigns().then((data) => {
+		state.loading = false;
+		state.campaigns = data;
+	});
 });
 </script>

@@ -55,6 +55,33 @@
 						</div>
 					</div>
 
+					<div class="row">
+						<div class="col-sm-12 input-with-label text-left">
+							<span>Dê uma gorjeta a plataforma:</span>
+							<div class="alert alert-success" role="alert">
+								O midowe cobra 0% de taxa ao
+								<strong>{{
+									props.campaign.attributes.fundraiser.data.attributes.full_name
+								}}</strong
+								>. Para que possamos continuar a ajudar mais pessoas, pedimos
+								que deixe ficar uma gorjeta:
+
+								<div class="range-slider">
+									<input
+										class="range-slider__range"
+										type="range"
+										v-model="state.tipPercent"
+										min="0"
+										max="50"
+									/>
+									<span class="range-slider__value"
+										>{{ state.tipPercent }} %</span
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<div
 						v-if="state.amount === 0"
 						class="row"
@@ -144,7 +171,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2 input-with-label text-left">
-							<button class="action-button" type="submit">
+							<button class="action-button mb5" type="submit">
 								<span>Apoiar com</span>
 								<span v-show="state.amount !== 0">{{
 									formatMoney(state.amount)
@@ -154,6 +181,12 @@
 								}}</span>
 								<i class="ti-heart"></i>
 							</button>
+							<p class="mb0 text-center">
+								<b
+									>Será cobrado {{ formatMoney(state.amount) }} +
+									{{ formatMoney(calcTipAmount()) }} de gorjeta</b
+								>
+							</p>
 							<br />
 							<p class="text-center">
 								<small>
@@ -341,6 +374,128 @@ input[type="text"] {
 	padding: 0;
 	color: rgb(197, 18, 8);
 }
+
+// Base Colors
+$shade-10: #2c3e50 !default;
+$shade-1: #d7dcdf !default;
+$shade-0: #fff !default;
+$teal: #1abc9c !default;
+
+// Reset
+.range-slider {
+	margin: 20px 0 0 0%;
+}
+
+// Range Slider
+$range-width: 100% !default;
+
+$range-handle-color: $shade-10 !default;
+$range-handle-color-hover: $teal !default;
+$range-handle-size: 20px !default;
+
+$range-track-color: $shade-1 !default;
+$range-track-height: 10px !default;
+
+$range-label-color: $shade-10 !default;
+$range-label-width: 60px !default;
+
+.range-slider {
+	width: $range-width;
+	display: flex;
+	margin: 10px 0;
+}
+
+.range-slider__range {
+	-webkit-appearance: none;
+	width: calc(100% - (#{$range-label-width + 13px}));
+	height: $range-track-height;
+	border-radius: 5px;
+	background: $range-track-color;
+	outline: none;
+	padding: 0;
+	margin: 10px 0 0 0;
+
+	// Range Handle
+	&::-webkit-slider-thumb {
+		appearance: none;
+		width: $range-handle-size;
+		height: $range-handle-size;
+		border-radius: 50%;
+		background: $range-handle-color;
+		cursor: pointer;
+		transition: background 0.15s ease-in-out;
+
+		&:hover {
+			background: $range-handle-color-hover;
+		}
+	}
+
+	&:active::-webkit-slider-thumb {
+		background: $range-handle-color-hover;
+	}
+
+	&::-moz-range-thumb {
+		width: $range-handle-size;
+		height: $range-handle-size;
+		border: 0;
+		border-radius: 50%;
+		background: $range-handle-color;
+		cursor: pointer;
+		transition: background 0.15s ease-in-out;
+
+		&:hover {
+			background: $range-handle-color-hover;
+		}
+	}
+
+	&:active::-moz-range-thumb {
+		background: $range-handle-color-hover;
+	}
+
+	// Focus state
+	&:focus {
+		&::-webkit-slider-thumb {
+			box-shadow: 0 0 0 3px $shade-0, 0 0 0 6px $teal;
+		}
+	}
+}
+
+// Range Label
+.range-slider__value {
+	display: inline-block;
+	position: relative;
+	width: $range-label-width;
+	color: $shade-0;
+	line-height: 20px;
+	text-align: center;
+	border-radius: 3px;
+	background: $range-label-color;
+	padding: 5px 10px;
+	margin-left: 8px;
+
+	&:after {
+		position: absolute;
+		top: 8px;
+		left: -7px;
+		width: 0;
+		height: 0;
+		border-top: 7px solid transparent;
+		border-right: 7px solid $range-label-color;
+		border-bottom: 7px solid transparent;
+		content: "";
+	}
+}
+
+// Firefox Overrides
+::-moz-range-track {
+	background: $range-track-color;
+	border: 0;
+}
+
+input::-moz-focus-inner,
+input::-moz-focus-outer {
+	border: 0;
+}
 </style>
 
 <script setup lang="ts">
@@ -364,6 +519,7 @@ const state = reactive({
 	email: "",
 	fullName: "",
 	message: "",
+	tipPercent: 10,
 	isProcessing: false,
 	isSuccess: false,
 	thirdPartyRef: makeid(6),
@@ -394,6 +550,12 @@ function validateInput(): boolean {
 	return true;
 }
 
+const calcTipAmount = () => {
+	const billing = state.amount === 0 ? state.customAmout : state.amount;
+	const tip = (state.tipPercent / 100) * billing;
+	return Math.ceil(tip);
+};
+
 function handleSubmit() {
 	if (!validateInput()) {
 		return;
@@ -403,9 +565,10 @@ function handleSubmit() {
 
 	const request: DonationRequest = {
 		account_id: props.campaign.attributes.fundraiser.data.attributes.email,
-		campaign_id: props.campaign.attributes.slug,
+		campaign_id: props.campaign.id,
 		campaign_name: props.campaign.attributes.title,
-		amount: state.amount === 0 ? `${state.customAmout}` : `${state.amount}`,
+		amount: state.amount === 0 ? state.customAmout : state.amount,
+		tip_percent: state.tipPercent / 100,
 		third_party_reference: state.thirdPartyRef,
 		payment_method: "mpesa",
 		payment_address: `258${state.phone}`,
