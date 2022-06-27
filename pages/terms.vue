@@ -1,5 +1,5 @@
 <template>
-	<h1>Termos e condições de uso</h1>
+	<page-terms />
 </template>
 
 <script>
