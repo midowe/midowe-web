@@ -6,13 +6,13 @@ data "docker_registry_image" "midowe" {
 resource "docker_image" "midowe_image" {
   name          = data.docker_registry_image.midowe.name
   pull_triggers = [data.docker_registry_image.midowe.sha256_digest]
-  restart       = "always"
 }
 
 # Create the container
 resource "docker_container" "midowe_container" {
-  image = docker_image.midowe_image.name
-  name  = local.resource_prefix
+  image   = docker_image.midowe_image.name
+  name    = local.resource_prefix
+  restart = "always"
 
   env = ["RUN_ENV=${var.environment}"]
 
