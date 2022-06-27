@@ -6,6 +6,7 @@ data "docker_registry_image" "midowe" {
 resource "docker_image" "midowe_image" {
   name          = data.docker_registry_image.midowe.name
   pull_triggers = [data.docker_registry_image.midowe.sha256_digest]
+  restart       = "always"
 }
 
 # Create the container
