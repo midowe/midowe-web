@@ -75,7 +75,6 @@ dev-iac-plan:
       - ".iac/.terraform/providers"
   only:
     - develop
-    - main
 
 dev-iac-apply:
   stage: dev-iac-apply
@@ -92,4 +91,70 @@ dev-iac-apply:
       - ".iac/.terraform/providers"
   only:
     - develop
+
+.tf-init-prd:
+  before_script:
+    - apt-get update && apt-get install software-properties-common curl openssh-client -y
+    # Configs and Secrets
+    - export TF_VAR_environment=dev
+    - export TF_VAR_container_port=33500
+    - export TF_VAR_image_tag=$TAG_COMMIT
+    - export TF_VAR_registry_username=$REGISTRY_USERNAME
+    - export TF_VAR_registry_password=$REGISTRY_PASSWORD
+    # Setup SSH
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY_SAFEHOUZE" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    # Terraform
+    - curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+    - apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+    - apt-get update && apt-get install terraform -y
+    - terraform version
+    - |
+      terraform -chdir=.iac init \
+      -backend=true \
+      -backend-config="key=midowe-web-prd/terraform.tfstate" \
+      -force-copy
+
+prd-iac-lint:
+  stage: all-lint
+  extends: .tf-init-prd
+  script:
+    - terraform -chdir=.iac validate
+  artifacts:
+    paths:
+      - ".iac/.terraform/providers"
+
+prd-iac-plan:
+  stage: prd-iac-plan
+  extends: .tf-init-prd
+  script:
+    - terraform -chdir=.iac plan -out=prd-env.tfplan
+    - terraform -chdir=.iac show -json prd-env.tfplan > .iac/prd-env.tfplan.json
+  artifacts:
+    paths:
+      - ".out/*"
+      - ".iac/*.json"
+      - ".iac/*.tfplan"
+      - ".iac/.terraform/providers"
+  only:
     - main
+  when: manual
+
+prd-iac-apply:
+  stage: prd-iac-apply
+  extends: .tf-init-prd
+  interruptible: false
+  script:
+    - terraform -chdir=.iac apply -auto-approve prd-env.tfplan
+    - terraform -chdir=.iac output -json > .iac/prd-env.tfoutput.json
+  artifacts:
+    paths:
+      - ".out/*"
+      - ".iac/*.json"
+      - ".iac/*.tfplan"
+      - ".iac/.terraform/providers"
+  only:
+    - main
+  when: manual
