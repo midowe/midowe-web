@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const env = process.env.RUN_ENV || "dev";
+const env = process.env.RUN_ENV || "prd";
 
 const urls = {
 	dev: {
