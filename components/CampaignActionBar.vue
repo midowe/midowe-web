@@ -22,12 +22,18 @@
 					</div>
 				</div>
 				<div class="col-sm-7 call-to-action">
-					<campaign-share :campaign="campaign" />
-					<NuxtLink :to="`/${campaign.attributes.slug}/donate`">
-						<a class="btn btn-lg btn-filled" href="#"
-							>Apoiar <i class="ti-heart"></i>
-						</a>
-					</NuxtLink>
+					<div class="row">
+						<div class="col-md-6">
+							<campaign-share :campaign="campaign" />
+						</div>
+						<div class="col-md-6">
+							<NuxtLink :to="`/${campaign.attributes.slug}/donate`">
+								<a class="btn btn-lg btn-filled" href="#"
+									>Apoiar <i class="ti-heart"></i>
+								</a>
+							</NuxtLink>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row stats-area">
@@ -36,8 +42,8 @@
 					<ul class="stats">
 						<li>Contribuições: {{ campaign.attributes.total_donations }}</li>
 						<li>
-							Contribuido: {{ formatMoney(campaign.attributes.total_amount) }}
-							<span v-if="campaign.attributes.target_amount > 0"
+							Angariado: {{ formatMoney(campaign.attributes.total_amount) }}
+							<span class="hide-sm" v-if="campaign.attributes.target_amount > 0"
 								>({{
 									formatPercent(
 										campaign.attributes.target_amount,
@@ -87,6 +93,9 @@
 	.btn {
 		margin-bottom: 0;
 	}
+	.btn-lg {
+		min-width: -webkit-fill-available;
+	}
 }
 .stats-area {
 	margin-top: 20px;
@@ -101,6 +110,21 @@
 		padding: 5px 10px;
 		color: #404040ae;
 		font-size: 11px;
+	}
+}
+
+@media all and (max-width: 767px) {
+	.stats {
+		flex-wrap: wrap;
+		li {
+			width: 45%;
+		}
+	}
+	.hide-sm {
+		display: none;
+	}
+	.call-to-action {
+		justify-content: center;
 	}
 }
 </style>

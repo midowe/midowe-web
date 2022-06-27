@@ -52,6 +52,13 @@
 		}
 	}
 }
+@media all and (max-width: 767px) {
+	.share-area {
+		ul {
+			justify-content: center;
+		}
+	}
+}
 </style>
 
 <script lang="ts">

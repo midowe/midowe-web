@@ -55,33 +55,6 @@
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="col-sm-12 input-with-label text-left">
-							<span>Dê uma gorjeta a plataforma:</span>
-							<div class="alert alert-success" role="alert">
-								O midowe cobra 0% de taxa ao
-								<strong>{{
-									props.campaign.attributes.fundraiser.data.attributes.full_name
-								}}</strong
-								>. Para que possamos continuar a ajudar mais pessoas, pedimos
-								que deixe ficar uma gorjeta:
-
-								<div class="range-slider">
-									<input
-										class="range-slider__range"
-										type="range"
-										v-model="state.tipPercent"
-										min="0"
-										max="50"
-									/>
-									<span class="range-slider__value"
-										>{{ state.tipPercent }} %</span
-									>
-								</div>
-							</div>
-						</div>
-					</div>
-
 					<div
 						v-if="state.amount === 0"
 						class="row"
@@ -133,6 +106,33 @@
 						</div>
 					</div>
 
+					<div class="row">
+						<div class="col-sm-12 input-with-label text-left">
+							<span>Dê uma gorjeta a plataforma:</span>
+							<div class="alert alert-success" role="alert">
+								O midowe cobra 0% de taxa ao
+								<strong>{{
+									props.campaign.attributes.fundraiser.data.attributes.full_name
+								}}</strong
+								>. Para que possamos continuar a ajudar mais pessoas, pedimos
+								que deixe ficar uma gorjeta:
+
+								<div class="range-slider">
+									<input
+										class="range-slider__range"
+										type="range"
+										v-model="state.tipPercent"
+										min="0"
+										max="50"
+									/>
+									<span class="range-slider__value"
+										>{{ state.tipPercent }} %</span
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<div class="check-options">
 						<div class="row">
 							<div class="col-sm-12">
@@ -154,9 +154,7 @@
 									type="checkbox"
 									v-model="state.leaveMessage"
 								/>
-								<label for="leave-message">
-									Deixar ficar uma mensagem para esta campanha</label
-								>
+								<label for="leave-message"> Deixar ficar uma mensagem</label>
 							</div>
 						</div>
 					</div>
@@ -283,6 +281,21 @@ input[type="checkbox"] {
 		border-right: none;
 	}
 }
+
+@media all and (max-width: 767px) {
+	.amount-options {
+		flex-wrap: wrap;
+
+		li {
+			width: 45%;
+		}
+
+		li:not(:last-child) .btn {
+			border-right: 2px solid #3e13b9;
+		}
+	}
+}
+
 .check-options {
 	margin-bottom: 13px;
 }
