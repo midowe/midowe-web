@@ -1,4 +1,4 @@
-data "docker_registry_image" "midowe" {
+edata "docker_registry_image" "midowe" {
   name = var.image_tag
 }
 
@@ -12,6 +12,8 @@ resource "docker_image" "midowe_image" {
 resource "docker_container" "midowe_container" {
   image = docker_image.midowe_image.name
   name  = local.resource_prefix
+
+  env = ["RUN_ENV=${var.environment}"]
 
   ports {
     internal = "3000"
