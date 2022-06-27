@@ -96,7 +96,7 @@ dev-iac-apply:
   before_script:
     - apt-get update && apt-get install software-properties-common curl openssh-client -y
     # Configs and Secrets
-    - export TF_VAR_environment=dev
+    - export TF_VAR_environment=prd
     - export TF_VAR_container_port=33500
     - export TF_VAR_image_tag=$TAG_COMMIT
     - export TF_VAR_registry_username=$REGISTRY_USERNAME
