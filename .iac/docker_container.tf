@@ -14,6 +14,8 @@ resource "docker_container" "midowe_container" {
   image = docker_image.midowe_image.name
   name  = local.resource_prefix
 
+  env = ["RUN_ENV=${var.environment}"]
+
   ports {
     internal = "3000"
     external = var.container_port
