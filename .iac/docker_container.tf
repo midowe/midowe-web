@@ -1,4 +1,4 @@
-edata "docker_registry_image" "midowe" {
+data "docker_registry_image" "midowe" {
   name = var.image_tag
 }
 
