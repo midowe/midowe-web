@@ -20,6 +20,10 @@ docker-build:
   services:
     - docker:dind
   script:
+    - export ENDPOINT_CMS=https://cms.midowe.co.mz/api
+    - export ENDPOINT_ACCOUTING=https://xlhofsmgf4o3xtpleqam77sd240braxu.lambda-url.af-south-1.on.aws
+    - rm -rf node_modules && yarn install
+    - yarn build
     - docker build -t $TAG_COMMIT .
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_COMMIT
@@ -101,8 +105,6 @@ dev-iac-apply:
     - export TF_VAR_image_tag=$TAG_COMMIT
     - export TF_VAR_registry_username=$REGISTRY_USERNAME
     - export TF_VAR_registry_password=$REGISTRY_PASSWORD
-    - export TF_VAR_endpoint_cms=https://cms.midowe.co.mz/api
-    - export TF_VAR_endpoint_accouting=https://xlhofsmgf4o3xtpleqam77sd240braxu.lambda-url.af-south-1.on.aws
     # Setup SSH
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY_SAFEHOUZE" | tr -d '\r' | ssh-add -
