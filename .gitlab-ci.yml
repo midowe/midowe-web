@@ -1,10 +1,11 @@
-image: golang:1.18.2-buster
+image: node:16
 
 variables:
   TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
 
 stages:
   - all-lint
+  - src-build
   - docker-build
   - dev-iac-plan
   - dev-iac-apply
@@ -14,16 +15,44 @@ stages:
 default:
   interruptible: true
 
+dev-src-build:
+  stage: src-build
+  script:
+    - export ENDPOINT_CMS=https://cms.midowe.co.mz/api
+    - export ENDPOINT_ACCOUTING=https://eugqgyjdksk2hoi7rj6b23zjti0grskw.lambda-url.af-south-1.on.aws
+    - rm -rf node_modules && yarn install
+    - yarn build
+    - docker build -t $TAG_COMMIT .
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_COMMIT
+  artifacts:
+    paths:
+      - .output
+  only:
+    - develop
+
+prd-src-build:
+  stage: src-build
+  script:
+    - export ENDPOINT_CMS=https://cms.dev.midowe.co.mz/api
+    - export ENDPOINT_ACCOUTING=https://xlhofsmgf4o3xtpleqam77sd240braxu.lambda-url.af-south-1.on.aws
+    - rm -rf node_modules && yarn install
+    - yarn build
+    - docker build -t $TAG_COMMIT .
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_COMMIT
+  artifacts:
+    paths:
+      - .output
+  only:
+    - main
+
 docker-build:
   stage: docker-build
   image: docker:latest
   services:
     - docker:dind
   script:
-    - export ENDPOINT_CMS=https://cms.midowe.co.mz/api
-    - export ENDPOINT_ACCOUTING=https://xlhofsmgf4o3xtpleqam77sd240braxu.lambda-url.af-south-1.on.aws
-    - rm -rf node_modules && yarn install
-    - yarn build
     - docker build -t $TAG_COMMIT .
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_COMMIT
