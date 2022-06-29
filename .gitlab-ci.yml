@@ -22,9 +22,6 @@ dev-src-build:
     - export ENDPOINT_ACCOUTING=https://eugqgyjdksk2hoi7rj6b23zjti0grskw.lambda-url.af-south-1.on.aws
     - rm -rf node_modules && yarn install
     - yarn build
-    - docker build -t $TAG_COMMIT .
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push $TAG_COMMIT
   artifacts:
     paths:
       - .output
@@ -38,9 +35,6 @@ prd-src-build:
     - export ENDPOINT_ACCOUTING=https://xlhofsmgf4o3xtpleqam77sd240braxu.lambda-url.af-south-1.on.aws
     - rm -rf node_modules && yarn install
     - yarn build
-    - docker build -t $TAG_COMMIT .
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push $TAG_COMMIT
   artifacts:
     paths:
       - .output
