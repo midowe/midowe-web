@@ -18,7 +18,7 @@ default:
 dev-src-build:
   stage: src-build
   script:
-    - export ENDPOINT_CMS=https://cms.midowe.co.mz/api
+    - export ENDPOINT_CMS=https://cms.dev.midowe.co.mz/api
     - export ENDPOINT_ACCOUTING=https://eugqgyjdksk2hoi7rj6b23zjti0grskw.lambda-url.af-south-1.on.aws
     - rm -rf node_modules && yarn install
     - yarn build
@@ -31,7 +31,7 @@ dev-src-build:
 prd-src-build:
   stage: src-build
   script:
-    - export ENDPOINT_CMS=https://cms.dev.midowe.co.mz/api
+    - export ENDPOINT_CMS=https://cms.midowe.co.mz/api
     - export ENDPOINT_ACCOUTING=https://xlhofsmgf4o3xtpleqam77sd240braxu.lambda-url.af-south-1.on.aws
     - rm -rf node_modules && yarn install
     - yarn build
