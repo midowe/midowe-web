@@ -99,7 +99,7 @@
 						<h5><strong>Entre em contacto</strong></h5>
 						<p>
 							Chegue até nós pelo contacto: +258 84 890 5470 ou pelo email:
-							info@midowe.co.mz
+							support@midowe.co.mz
 						</p>
 						<br /><br />
 					</div>

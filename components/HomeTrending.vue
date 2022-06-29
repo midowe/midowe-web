@@ -30,10 +30,12 @@
 <script lang="ts" setup>
 import { getTrendingCampaigns } from "~~/clients/campaign-client";
 
+const config = useRuntimeConfig();
+
 const state = reactive({ loading: true, campaigns: [] });
 
 onMounted(() => {
-	getTrendingCampaigns().then((data) => {
+	getTrendingCampaigns(config.public.endpointCms).then((data) => {
 		state.loading = false;
 		state.campaigns = data;
 	});

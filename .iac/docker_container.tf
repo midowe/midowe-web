@@ -14,7 +14,7 @@ resource "docker_container" "midowe_container" {
   name    = local.resource_prefix
   restart = "always"
 
-  env = ["RUN_ENV=${var.environment}"]
+  env = ["RUN_ENV=${var.environment}", "ENDPOINT_CMS=${var.endpoint_cms}", "ENDPOINT_ACCOUTING=${var.endpoint_accouting}"]
 
   ports {
     internal = "3000"

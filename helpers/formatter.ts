@@ -17,3 +17,11 @@ export function formatYmdDate(fullDate: string) {
 	const date = new Date(fullDate);
 	return date.toISOString().split("T")[0];
 }
+
+export function formatFullDate(fullDate: string) {
+	const date = new Date(fullDate);
+	return new Intl.DateTimeFormat("pt-MZ", {
+		dateStyle: "short",
+		timeStyle: "medium",
+	}).format(date);
+}

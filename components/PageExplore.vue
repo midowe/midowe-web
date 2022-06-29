@@ -19,24 +19,17 @@
 	</div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import { getCampaigns } from "~~/clients/campaign-client";
 
-export default defineComponent({
-	async setup() {
-		const route = useRoute();
-		console.log(route.query);
+const config = useRuntimeConfig();
+const route = useRoute();
 
-		const searchCriteria: string = "";
+const searchCriteria: string = "";
 
-		const campaigns = await getCampaigns();
-		return { campaigns };
-	},
-	head() {
-		return {
-			title: "Explorar",
-		};
-	},
+const campaigns = await getCampaigns(config.public.endpointCms);
+
+useHead({
+	title: "Explorar",
 });
 </script>

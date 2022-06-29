@@ -1,8 +1,9 @@
-import { axiosAccouting } from "./_base-client";
+import axios from "axios";
 
 export interface DonationRequest {
 	account_id: string;
 	campaign_id: number;
+	fundraiser_name: string;
 	campaign_name: string;
 	amount: number;
 	tip_percent: number;
@@ -14,7 +15,13 @@ export interface DonationRequest {
 	supporter_message: string;
 }
 
-export async function registerDonation(request: DonationRequest): Promise<any> {
+export async function registerDonation(
+	baseURL: string,
+	request: DonationRequest
+): Promise<any> {
+	const axiosAccouting = axios.create({
+		baseURL,
+	});
 	const response = await axiosAccouting.post("/", request);
 	return response.data;
 }

@@ -32,10 +32,12 @@
 <script lang="ts" setup>
 import { getAllCategories } from "~~/clients/category-client";
 
+const config = useRuntimeConfig();
+
 const state = reactive({ loading: true, categories: [] });
 
 onMounted(() => {
-	getAllCategories().then((data) => {
+	getAllCategories(config.public.endpointCms).then((data) => {
 		state.loading = false;
 		state.categories = data;
 	});

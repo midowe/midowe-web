@@ -55,7 +55,7 @@
 						<li v-if="campaign.attributes.target_amount > 0">
 							Meta: {{ formatMoney(campaign.attributes.target_amount) }}
 						</li>
-						<li v-if="campaign.attributes.target_date !== ''">
+						<li v-if="campaign.attributes.target_date">
 							Prazo: {{ campaign.attributes.target_date }}
 						</li>
 					</ul>

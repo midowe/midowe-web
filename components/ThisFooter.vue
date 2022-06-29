@@ -15,12 +15,15 @@
 				<div class="col-sm-4 text-right text-center-xs">
 					<ul class="list-inline social-list">
 						<li>
-							<a href="mailto:animake.co.mz@gmail.com"
-								><i class="ti-email"></i
+							<a href="mailto:support@midowe.co.mz"><i class="ti-email"></i></a>
+						</li>
+						<li>
+							<a href="https://www.instagram.com/midowemz/" target="_blank"
+								><i class="ti-instagram"></i
 							></a>
 						</li>
 						<li>
-							<a href="https://www.facebook.com/midowemz"
+							<a href="https://www.facebook.com/midowemz" target="_blank"
 								><i class="ti-facebook"></i
 							></a>
 						</li>

@@ -22,15 +22,15 @@ section {
 }
 </style>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { defineComponent } from "vue";
 import { getCampaign } from "~~/clients/campaign-client";
 
-export default defineComponent({
-	async setup() {
-		const route = useRoute();
-		const campaign = await getCampaign(route.params.campaignSlug);
-		return { campaign };
-	},
-});
+const config = useRuntimeConfig();
+const route = useRoute();
+
+const campaign = await getCampaign(
+	config.public.endpointCms,
+	route.params.campaignSlug
+);
 </script>

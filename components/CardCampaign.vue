@@ -7,7 +7,21 @@
 			></div>
 			<div class="text">
 				<h1>{{ props.campaign.attributes.title }}</h1>
-				<p>
+				<p
+					v-if="
+						props.campaign.attributes.target_amount === 0 ||
+						!campaign.attributes.target_date
+					"
+				>
+					{{ campaign.attributes.total_donations }} pessoas doaram
+					{{ formatMoney(props.campaign.attributes.total_amount) }}
+				</p>
+				<p
+					v-if="
+						props.campaign.attributes.target_amount > 0 &&
+						campaign.attributes.target_date != undefined
+					"
+				>
 					{{
 						formatPercent(
 							props.campaign.attributes.target_amount,

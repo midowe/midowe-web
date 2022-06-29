@@ -172,16 +172,23 @@
 							<button class="action-button mb5" type="submit">
 								<span>Apoiar com</span>
 								<span v-show="state.amount !== 0">{{
-									formatMoney(state.amount)
+									formatMoney(state.amount + calcTipAmount())
 								}}</span>
 								<span v-show="state.amount === 0">{{
-									formatMoney(state.customAmout)
+									formatMoney(state.customAmout + calcTipAmount())
 								}}</span>
 								<i class="ti-heart"></i>
 							</button>
 							<p class="mb0 text-center">
 								<b
-									>Será cobrado {{ formatMoney(state.amount) }} +
+									>Será cobrado
+									<b v-show="state.amount !== 0">{{
+										formatMoney(state.amount)
+									}}</b>
+									<b v-show="state.amount === 0">{{
+										formatMoney(state.customAmout)
+									}}</b>
+									+
 									{{ formatMoney(calcTipAmount()) }} de gorjeta</b
 								>
 							</p>
@@ -204,11 +211,24 @@
 
 			<img src="/mpesa-logo.jpeg" alt="" />
 
-			<p>
-				Confirme a transação <strong>{{ state.thirdPartyRef }}</strong> no seu
-				número
-				<strong>{{ state.phone }}</strong>
-			</p>
+			<div>
+				<p>
+					Confirme a transação: <strong>{{ state.thirdPartyRef }}</strong>
+				</p>
+				<p>
+					Número M-Pesa: <strong>{{ state.phone }}</strong>
+				</p>
+				<p>
+					Valor:
+					<strong v-show="state.amount !== 0">{{
+						formatMoney(state.amount + calcTipAmount())
+					}}</strong>
+					<strong v-show="state.amount === 0">{{
+						formatMoney(state.customAmout + calcTipAmount())
+					}}</strong>
+				</p>
+				<p>Comerciante: <strong>UAUU</strong></p>
+			</div>
 		</div>
 	</section>
 	<section v-if="state.isSuccess" class="section-success">
@@ -216,13 +236,24 @@
 			<img src="/hands-holding-words-thank-you.png" alt="" />
 
 			<h1>{{ props.campaign.attributes.thank_you_message }}</h1>
-			<h2>
-				Quantia:
-				<span v-show="state.amount !== 0">{{ formatMoney(state.amount) }}</span>
-				<span v-show="state.amount === 0">{{
-					formatMoney(state.customAmout)
-				}}</span>
-			</h2>
+			<div>
+				<h2 style="margin-bottom: 0; line-height: initial">
+					Quantia:
+					<span v-show="state.amount !== 0">{{
+						formatMoney(state.amount)
+					}}</span>
+					<span v-show="state.amount === 0">{{
+						formatMoney(state.customAmout)
+					}}</span>
+				</h2>
+
+				<h2>
+					Gorjeta:
+					<span v-show="calcTipAmount() !== 0">{{
+						formatMoney(calcTipAmount())
+					}}</span>
+				</h2>
+			</div>
 
 			<NuxtLink :to="`/${props.campaign.attributes.slug}`"
 				><a class="btn"> Fechar </a></NuxtLink
@@ -327,6 +358,10 @@ input[type="checkbox"] {
 		border-radius: 3px;
 		box-shadow: 0 0 10px rgb(137, 137, 137);
 		margin-top: -10%;
+	}
+
+	p {
+		margin: 0;
 	}
 }
 .section-success {
@@ -517,6 +552,8 @@ import { DonationRequest, registerDonation } from "~~/clients/accouting-client";
 import { Campaign } from "~~/clients/campaign-client";
 import { makeid } from "~~/helpers/random";
 
+const config = useRuntimeConfig();
+
 interface Props {
 	campaign: Campaign;
 }
@@ -544,6 +581,14 @@ const err = reactive({
 	errEmail: false,
 	errName: false,
 	errMessage: false,
+});
+
+onMounted(() => {
+	if (localStorage != undefined) {
+		state.phone = localStorage.getItem("midowe_donor_phone") ?? "";
+		state.email = localStorage.getItem("midowe_donor_email") ?? "";
+		state.fullName = localStorage.getItem("midowe_donor_full_name") ?? "";
+	}
 });
 
 function validateInput(): boolean {
@@ -579,6 +624,8 @@ function handleSubmit() {
 	const request: DonationRequest = {
 		account_id: props.campaign.attributes.fundraiser.data.attributes.email,
 		campaign_id: props.campaign.id,
+		fundraiser_name:
+			props.campaign.attributes.fundraiser.data.attributes.full_name,
 		campaign_name: props.campaign.attributes.title,
 		amount: state.amount === 0 ? state.customAmout : state.amount,
 		tip_percent: state.tipPercent / 100,
@@ -590,9 +637,16 @@ function handleSubmit() {
 		supporter_message: state.message,
 	};
 
-	registerDonation(request)
+	registerDonation(config.public.endpointAccouting, request)
 		.then((data) => {
 			if (data.Success === true || data.payment_response.Success === true) {
+				// Persist for next usage
+				if (localStorage != undefined) {
+					localStorage.setItem("midowe_donor_phone", state.phone);
+					localStorage.setItem("midowe_donor_email", state.email);
+					localStorage.setItem("midowe_donor_full_name", state.fullName);
+				}
+
 				state.isSuccess = true;
 			} else {
 				state.errorMessage = JSON.stringify(data);

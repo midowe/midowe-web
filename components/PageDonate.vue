@@ -11,15 +11,14 @@ section {
 }
 </style>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import { getCampaign } from "~~/clients/campaign-client";
 
-export default defineComponent({
-	async setup() {
-		const route = useRoute();
-		const campaign = await getCampaign(route.params.campaignSlug);
-		return { campaign };
-	},
-});
+const config = useRuntimeConfig();
+const route = useRoute();
+
+const campaign = await getCampaign(
+	config.public.endpointCms,
+	route.params.campaignSlug
+);
 </script>

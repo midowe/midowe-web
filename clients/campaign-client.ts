@@ -1,5 +1,5 @@
 import { Category } from "./category-client";
-import { axiosCms } from "./_base-client";
+import axios from "axios";
 
 export interface Campaign {
 	id: number;
@@ -68,7 +68,12 @@ interface FundraiserAttributes {
 	email: string;
 }
 
-export async function getTrendingCampaigns(): Promise<Campaign[]> {
+export async function getTrendingCampaigns(
+	baseURL: string
+): Promise<Campaign[]> {
+	const axiosCms = axios.create({
+		baseURL,
+	});
 	const response = await axiosCms.get(
 		"/campaigns?filters[on_spot][$eq]=true&filters[approved][$eq]=true&populate=images"
 	);
@@ -77,9 +82,13 @@ export async function getTrendingCampaigns(): Promise<Campaign[]> {
 }
 
 export async function getCampaigns(
+	baseURL: string,
 	page: number = 1,
 	pageSize: number = 12
 ): Promise<Campaign[]> {
+	const axiosCms = axios.create({
+		baseURL,
+	});
 	const response = await axiosCms.get(
 		`/campaigns?filters[approved][$eq]=true&populate=images,category&pagination[page]=${page}&pagination[pageSize]=${pageSize}&sort[0]=createdAt:desc`
 	);
@@ -87,7 +96,13 @@ export async function getCampaigns(
 	return campaigns;
 }
 
-export async function getCampaign(slug: any): Promise<Campaign | undefined> {
+export async function getCampaign(
+	baseURL: string,
+	slug: any
+): Promise<Campaign | undefined> {
+	const axiosCms = axios.create({
+		baseURL,
+	});
 	const response = await axiosCms.get(
 		`/campaigns?filters[approved][$eq]=true&filters[slug][$eq]=${slug}&populate=images,category,fundraiser,fundraiser.picture`
 	);

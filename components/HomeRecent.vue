@@ -44,10 +44,12 @@
 <script lang="ts" setup>
 import { getCampaigns } from "~~/clients/campaign-client";
 
+const config = useRuntimeConfig();
+
 const state = reactive({ loading: true, campaigns: [] });
 
 onMounted(() => {
-	getCampaigns().then((data) => {
+	getCampaigns(config.public.endpointCms).then((data) => {
 		state.loading = false;
 		state.campaigns = data;
 	});

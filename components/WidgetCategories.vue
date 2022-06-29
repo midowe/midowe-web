@@ -31,14 +31,11 @@ ul a:after {
 }
 </style>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { defineComponent } from "vue";
 import { getAllCategories } from "~~/clients/category-client";
 
-export default defineComponent({
-	async setup() {
-		const categories = await getAllCategories();
-		return { categories };
-	},
-});
+const config = useRuntimeConfig();
+
+const categories = await getAllCategories(config.public.endpointCms);
 </script>

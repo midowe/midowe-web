@@ -19,7 +19,7 @@
 					<h4>{{ formatMoney(donation.attributes.amount) }}</h4>
 					<div>
 						<h5>
-							{{ donation.attributes.createdAt }}
+							{{ formatFullDate(donation.attributes.createdAt) }}
 							<span
 								>-
 								<em>{{
@@ -75,7 +75,9 @@
 <script lang="ts" setup>
 import { Campaign } from "~~/clients/campaign-client";
 import { getDonations } from "~~/clients/donation-client";
-import { formatMoney } from "~~/helpers/formatter";
+import { formatMoney, formatFullDate } from "~~/helpers/formatter";
+
+const config = useRuntimeConfig();
 
 interface Props {
 	campaign: Campaign;
@@ -86,9 +88,11 @@ const props = defineProps<Props>();
 const state = reactive({ loading: true, donations: [] });
 
 onMounted(() => {
-	getDonations(props.campaign.id, 1, 12).then((data) => {
-		state.loading = false;
-		state.donations = data;
-	});
+	getDonations(config.public.endpointCms, props.campaign.id, 1, 12).then(
+		(data) => {
+			state.loading = false;
+			state.donations = data;
+		}
+	);
 });
 </script>

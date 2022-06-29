@@ -7,5 +7,11 @@ export default defineNuxtConfig({
 		//strict: true
 	},
 	css: ["@/assets/scss/custom.scss", "@splidejs/vue-splide/css"],
+	runtimeConfig: {
+		public: {
+			endpointCms: process.env.ENDPOINT_CMS,
+			endpointAccouting: process.env.ENDPOINT_ACCOUTING,
+		},
+	},
 });
 //'@/assets/scss/custom.scss'
