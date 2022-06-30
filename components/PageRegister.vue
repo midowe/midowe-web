@@ -1,15 +1,13 @@
 <template>
 	<div>
-		<home-slider-welcome />
-		<home-trending />
+		<div style="padding-top: 100px"></div>
+
 		<home-register />
-		<home-categories />
-		<home-recent />
 	</div>
 </template>
 
 <script setup>
 useHead({
-	title: "",
+	title: "Criar campanha",
 });
 </script>

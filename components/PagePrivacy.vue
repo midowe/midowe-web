@@ -4,7 +4,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 text-center">
-						<h3 class="uppercase mb0">Política de Privacidade e Dados</h3>
+						<h3 class="uppercase mb0">Política de Privacidade</h3>
 					</div>
 				</div>
 			</div>
@@ -13,7 +13,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-10 col-sm-offset-1">
-						<h4>Introdução</h4>
+						<h4>1. - Introdução</h4>
 						<p>
 							A presente política apresenta as formas de coleta, utilização,
 							tratamento e exposição de seus dados, de modo a esclarecer a nossa
@@ -36,9 +36,9 @@
 						</p>
 
 						<br />
-						<h4>Informações que coletamos</h4>
+						<h4>2. - Informações que coletamos</h4>
 
-						<h5 class="mb-1">Conta Fundraiser</h5>
+						<h5 class="mb-1">2.1. - Conta Fundraiser</h5>
 						<p class="mb-1">
 							Para se tornar fundraiser e poder ter campanhas de angariação de
 							donativos, o Midowe recolhe os seguintes dados:
@@ -53,7 +53,7 @@
 							<li>Informação das Campanhas</li>
 						</ul>
 
-						<h5 class="mb-1">Campanha</h5>
+						<h5 class="mb-1">2.2. - Campanha</h5>
 						<p class="mb-1">
 							As campanhas são criadas para definir um propósito da angariação
 							de fundos. Para criar uma campanha, coletamos:
@@ -75,7 +75,7 @@
 							<li>Mensagem personalizada de agradecimento para doadores</li>
 						</ul>
 
-						<h5 class="mb-1">Doador</h5>
+						<h5 class="mb-1">2.3. - Doador</h5>
 						<p class="mb-1">
 							O doador, pode ou não ter uma conta na plataforma Midowe, e não
 							tendo pode fazer doações anônimas, sendo que o único dado
@@ -92,7 +92,7 @@
 							doação, o doador poderá também fornecer o seu email.
 						</p>
 
-						<h5 class="mb-1">Cookies</h5>
+						<h5 class="mb-1">2.4. - Cookies</h5>
 						<p class="mb-1">
 							Cookies são pequenos arquivos de computador ou pacotes de dados
 							enviados por um website para o navegador de internet do visitante.
@@ -113,9 +113,9 @@
 						</p>
 
 						<br />
-						<h4>Informações que revelamos publicamente</h4>
+						<h4>3. - Informações que revelamos publicamente</h4>
 
-						<h5 class="mb-1">Campanhas</h5>
+						<h5 class="mb-1">3.1. - Campanhas</h5>
 						<p class="mb-1">
 							No nosso website
 							<a href="https://midowe.co.mz">https://midowe.co.mz</a>, listamos
@@ -141,7 +141,7 @@
 							<li>Total do Valor Angariado</li>
 						</ul>
 
-						<h5 class="mb-1">Contas Fundraiser</h5>
+						<h5 class="mb-1">3.2. - Contas Fundraiser</h5>
 						<p class="mb-1">
 							Associado à informação da campanha, alguns detalhes da conta
 							fundraiser são apresentados publicamente no website do Midowe.
@@ -153,7 +153,7 @@
 							<li>Fotografía de Perfil</li>
 						</ul>
 
-						<h5 class="mb-1">Doadores ou Doações</h5>
+						<h5 class="mb-1">3.3. - Doadores ou Doações</h5>
 						<p class="mb-1">
 							As informações dos doadores apresentadas publicamente são as
 							recolhidas no processo de doação, como:
@@ -166,9 +166,9 @@
 						</ul>
 
 						<br />
-						<h4>Como e para quê utilizamos suas informações</h4>
+						<h4>4. - Como e para quê utilizamos suas informações</h4>
 
-						<h5 class="mb-1">Doações e realocações</h5>
+						<h5 class="mb-1">4.1. - Doações e realocações</h5>
 						<p class="mb-1">
 							O Midowe para fornecer o serviço de intermediação de donativos,
 							utiliza os seus dados para:
@@ -188,7 +188,7 @@
 							<li>Garantir realocação dos fundos.</li>
 						</ol>
 
-						<h5 class="mb-1">Estatísticas e análise de dados</h5>
+						<h5 class="mb-1">4.2. - Estatísticas e análise de dados</h5>
 						<ol type="a">
 							<li>
 								O Midowe, através do serviço Google Analytics, carrega
@@ -204,9 +204,9 @@
 						</ol>
 
 						<br />
-						<h4>Formas de tratamento</h4>
+						<h4>5. - Formas de tratamento</h4>
 
-						<h5 class="mb-1">Residência e exclusão de dados</h5>
+						<h5 class="mb-1">5.1. - Residência e exclusão de dados</h5>
 						<ol type="a">
 							<li>
 								Os dados dos nossos utentes são armazenados em nossas bases de
@@ -244,7 +244,7 @@
 							</li>
 						</ol>
 
-						<h5 class="mb-1">Partilha de informação com terceiros</h5>
+						<h5 class="mb-1">5.2. - Partilha de informação com terceiros</h5>
 						<ol type="a">
 							<li>
 								A equipe do MIDOWE. não vende, não aluga nem de outra maneira
@@ -266,7 +266,7 @@
 							</li>
 						</ol>
 
-						<h5 class="mb-1">Respondendo a solicitações legais</h5>
+						<h5 class="mb-1">5.3. - Respondendo a solicitações legais</h5>
 						<ol type="a">
 							<li>
 								Em resposta a uma solicitação judicial poderemos exibir,
@@ -283,7 +283,7 @@
 						</ol>
 
 						<br />
-						<h4>Segurança de dados</h4>
+						<h4>6. - Segurança de dados</h4>
 
 						<ol type="a">
 							<li>
@@ -311,7 +311,7 @@
 						</ol>
 
 						<br />
-						<h4>Alterações a esta política</h4>
+						<h4>7. - Alterações a esta política</h4>
 
 						<p>
 							A MIDOWE reserva o direito de alterar esta política a qualquer
