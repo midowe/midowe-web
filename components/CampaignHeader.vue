@@ -8,9 +8,18 @@
 					{{ campaign.attributes.category.data.attributes.description }}
 				</NuxtLink>
 			</h6>
-			<h3>
+			<h3 :class="`${campaign.attributes.verified ? 'mb-10 ' : ''}`">
 				{{ campaign.attributes.title }}
 			</h3>
+			<p
+				v-if="campaign.attributes.verified"
+				title="Uma campanha verificada confirma que a mesma é autêntica"
+			>
+				<span class="verified"
+					><font-awesome-icon size="sm" :icon="['fa', 'circle-check']" />
+					<span class="desc">Verificado</span></span
+				>
+			</p>
 		</div>
 	</div>
 	<div class="row mb32 mb-xs-16">
@@ -24,8 +33,29 @@
 	</div>
 </template>
 
+<style scoped lang="scss">
+.verified {
+	font-size: 14px;
+	background-color: #3e13b9;
+	color: white;
+	vertical-align: middle;
+	border-radius: 15px;
+	padding: 0 2px;
+
+	.desc {
+		padding: 0 3px;
+	}
+}
+.mb-10 {
+	margin-bottom: 0;
+}
+</style>
+
 <script setup lang="ts">
 import { Campaign } from "~~/clients/campaign-client";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
 	campaign: Campaign;
@@ -33,6 +63,8 @@ interface Props {
 
 const props = defineProps<Props>();
 const campaign = props.campaign;
+
+library.add(faCircleCheck);
 
 useHead({
 	title: campaign.attributes.title,

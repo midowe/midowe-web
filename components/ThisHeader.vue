@@ -10,13 +10,13 @@
 
 				<div class="col-sm-12 col-md-5 col-md-pull-2 overflow-hidden-xs">
 					<ul class="menu inline-block pull-right">
-						<li :class="`${state.path === '/explore' ? 'active' : ''}`">
-							<NuxtLink to="/explore" @click="closeNav">Explorar</NuxtLink>
-						</li>
 						<li :class="`${state.path === '/register' ? 'active' : ''}`">
 							<NuxtLink to="/register" @click="closeNav"
 								>Criar campanha</NuxtLink
 							>
+						</li>
+						<li :class="`${state.path === '/explore' ? 'active' : ''}`">
+							<NuxtLink to="/explore" @click="closeNav">Explorar</NuxtLink>
 						</li>
 					</ul>
 				</div>

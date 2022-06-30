@@ -4,7 +4,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 text-center">
-						<h3 class="uppercase mb0">Política de Privacidade</h3>
+						<h3 class="uppercase mb0">Política de Privacidade e Dados</h3>
 					</div>
 				</div>
 			</div>

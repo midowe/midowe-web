@@ -74,7 +74,7 @@
 						</ul>
 						<p>
 							Nota: É necessário que a conta tenha um saldo mínimo de 100MT para
-							que se faça a transferência  do valor doado.
+							que se faça a transferência do valor doado.
 						</p>
 
 						<br />

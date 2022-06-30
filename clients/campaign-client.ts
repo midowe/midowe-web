@@ -18,6 +18,7 @@ interface CampaignAttributes {
 	category: CategoryData;
 	fundraiser: FundraiserData;
 	thank_you_message: string;
+	verified: boolean;
 }
 
 interface ImagesData {
