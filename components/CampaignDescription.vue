@@ -20,6 +20,14 @@
 		margin-bottom: 10px !important;
 	}
 }
+ul,
+ol {
+	padding: inherit;
+	padding-inline-start: 40px;
+}
+ul {
+	list-style: initial;
+}
 </style>
 
 <script setup lang="ts">
