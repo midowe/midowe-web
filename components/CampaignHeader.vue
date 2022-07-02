@@ -15,10 +15,12 @@
 				v-if="campaign.attributes.verified"
 				title="Uma campanha verificada confirma que a mesma é autêntica"
 			>
-				<span class="verified"
-					><font-awesome-icon size="sm" :icon="['fa', 'circle-check']" />
-					<span class="desc">Verificado</span></span
-				>
+				<span class="verified">
+					<span
+						><font-awesome-icon size="sm" :icon="['fa', 'circle-check']"
+					/></span>
+					<span class="desc">Verificado</span>
+				</span>
 			</p>
 		</div>
 	</div>
