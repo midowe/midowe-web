@@ -36,7 +36,7 @@
 						<div class="col-sm-12 input-with-label text-left">
 							<span>Valor da contribuição</span>
 							<ul class="amount-options">
-								<li v-for="option in [100, 200, 500, 1000]" :key="option">
+								<li v-for="option in [10, 50, 100, 200]" :key="option">
 									<a
 										@click="state.amount = option"
 										:class="`btn ${state.amount == option ? 'btn-filled' : ''}`"
@@ -75,6 +75,23 @@
 					</div>
 
 					<div
+						v-if="state.receiveRecepit || state.leaveMessage"
+						class="row"
+						style="margin-bottom: 24px"
+					>
+						<div class="col-sm-12 input-with-label text-left">
+							<span>Seu nome:</span>
+							<input type="text" v-model="state.fullName" />
+						</div>
+					</div>
+					<div v-if="state.leaveMessage" class="row">
+						<div class="col-sm-12 input-with-label text-left">
+							<span>Mensagem de apoio a campanha:</span>
+							<textarea minlength="3" v-model="state.message" />
+						</div>
+					</div>
+
+					<div
 						v-if="state.receiveRecepit"
 						class="row"
 						style="margin-bottom: 24px"
@@ -87,22 +104,6 @@
 								class="form-input"
 								v-model="state.email"
 							/>
-						</div>
-					</div>
-					<div
-						v-if="state.receiveRecepit || state.leaveMessage"
-						class="row"
-						style="margin-bottom: 24px"
-					>
-						<div class="col-sm-12 input-with-label text-left">
-							<span>Seu nome:</span>
-							<input type="text" required v-model="state.fullName" />
-						</div>
-					</div>
-					<div v-if="state.leaveMessage" class="row">
-						<div class="col-sm-12 input-with-label text-left">
-							<span>Mensagem de apoio a campanha:</span>
-							<textarea required minlength="3" v-model="state.message" />
 						</div>
 					</div>
 
@@ -137,12 +138,12 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<input
-									id="receipt"
+									id="leave-message"
 									type="checkbox"
-									v-model="state.receiveRecepit"
+									v-model="state.leaveMessage"
 								/>
-								<label for="receipt"
-									>Receber por e-mail o recibo desta transação</label
+								<label for="leave-message">
+									Deixar ficar seu nome ou uma mensagem</label
 								>
 							</div>
 						</div>
@@ -150,11 +151,13 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<input
-									id="leave-message"
+									id="receipt"
 									type="checkbox"
-									v-model="state.leaveMessage"
+									v-model="state.receiveRecepit"
 								/>
-								<label for="leave-message"> Deixar ficar uma mensagem</label>
+								<label for="receipt"
+									>Receber por e-mail o recibo desta transação</label
+								>
 							</div>
 						</div>
 					</div>
@@ -564,8 +567,8 @@ const state = reactive({
 	receiveRecepit: false,
 	leaveMessage: false,
 	phone: "",
-	amount: 500,
-	customAmout: 50,
+	amount: 100,
+	customAmout: 500,
 	email: "",
 	fullName: "",
 	message: "",
