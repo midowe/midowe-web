@@ -28,7 +28,7 @@
 		<div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
 			<img
 				alt=""
-				class="mb-xs-16 cast-shadow"
+				class="mb-xs-16 cast-shadow w-100"
 				:src="campaign.attributes.images.data[0].attributes.formats.medium.url"
 			/>
 		</div>
@@ -50,6 +50,9 @@
 }
 .mb-10 {
 	margin-bottom: 0;
+}
+.w-100 {
+	width: 100%;
 }
 </style>
 
