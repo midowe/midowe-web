@@ -5,12 +5,7 @@
 				Contribuições recebidas ({{ campaign.attributes.total_donations }})
 			</h6>
 			<hr />
-			<div v-if="state.loading" class="row masonry-loader">
-				<div class="col-sm-12 text-center">
-					<div class="spinner"></div>
-				</div>
-			</div>
-			<ul v-if="!state.loading">
+			<ul v-if="state.donations.length > 0">
 				<li
 					class="contribution-item"
 					v-for="donation in state.donations"
@@ -34,8 +29,17 @@
 						</p>
 					</div>
 				</li>
-				<!-- TODO: LOAD MORE -->
 			</ul>
+			<div v-show="state.loading" class="row">
+				<div class="col-sm-12 text-center">
+					<div class="spinner"></div>
+				</div>
+			</div>
+
+			<div v-show="!state.loading && state.isMore" class="text-center">
+				<button class="btn" @click="loadMore">Mais</button>
+			</div>
+			<!-- TODO: LOAD MORE -->
 		</div>
 	</div>
 </template>
@@ -85,14 +89,35 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const state = reactive({ loading: true, donations: [] });
+const state = reactive({
+	loading: true,
+	donations: [],
+	isMore: false,
+	pageNumber: 1,
+});
+
+const pageSize = 12;
+
+const loadMore = () => {
+	state.loading = true;
+
+	getDonations(
+		config.public.endpointCms,
+		props.campaign.id,
+		state.pageNumber,
+		pageSize
+	)
+		.then((data) => {
+			state.donations = [...state.donations, ...data];
+			state.isMore = data.length === pageSize;
+			state.pageNumber = state.pageNumber + 1;
+		})
+		.finally(() => {
+			state.loading = false;
+		});
+};
 
 onMounted(() => {
-	getDonations(config.public.endpointCms, props.campaign.id, 1, 12).then(
-		(data) => {
-			state.loading = false;
-			state.donations = data;
-		}
-	);
+	loadMore();
 });
 </script>

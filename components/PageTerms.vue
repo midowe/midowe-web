@@ -204,9 +204,9 @@
 
 						<p class="mb-1"><strong>Gorjetas</strong></p>
 						<p class="mb-1">
-							Gorjetas são uma doação que podem ser feitas pelos doadores de
-							campanhas para a plataforma Midowe. Essas doações podem ser
-							utilizadas para vários serviços como:
+							Gorjetas são doações feitas pelos doadores de campanhas, para a
+							plataforma Midowe. Essas doações podem ser utilizadas para vários
+							fins como:
 						</p>
 						<ul>
 							<li>Manutenção de servidores;</li>

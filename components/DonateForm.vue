@@ -155,9 +155,7 @@
 									type="checkbox"
 									v-model="state.receiveRecepit"
 								/>
-								<label for="receipt"
-									>Receber por e-mail o recibo desta transação</label
-								>
+								<label for="receipt">Receber por e-mail o comprovativo</label>
 							</div>
 						</div>
 					</div>
@@ -328,6 +326,11 @@ input[type="checkbox"] {
 			border-right: 2px solid #3e13b9;
 		}
 	}
+	.section-success {
+		.box {
+			max-width: 354px !important;
+		}
+	}
 }
 
 .check-options {
@@ -398,6 +401,8 @@ input[type="checkbox"] {
 		line-height: 25px;
 		color: #3e13b9;
 		margin: 25px 0 10px;
+		max-height: 35vh;
+		overflow: auto;
 	}
 	h2 {
 		font-size: 15px;
@@ -591,6 +596,10 @@ onMounted(() => {
 		state.phone = localStorage.getItem("midowe_donor_phone") ?? "";
 		state.email = localStorage.getItem("midowe_donor_email") ?? "";
 		state.fullName = localStorage.getItem("midowe_donor_full_name") ?? "";
+
+		if (state.email !== "") {
+			state.receiveRecepit = true;
+		}
 	}
 });
 
