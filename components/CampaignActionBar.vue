@@ -8,7 +8,11 @@
 							:alt="campaign.attributes.fundraiser.data.attributes.full_name"
 							:src="
 								campaign.attributes.fundraiser.data.attributes.picture.data
-									.attributes.formats.small.url
+									.attributes.formats.small != undefined
+									? campaign.attributes.fundraiser.data.attributes.picture.data
+											.attributes.formats.small.url
+									: campaign.attributes.fundraiser.data.attributes.picture.data
+											.attributes.url
 							"
 						/>
 						<div class="description">
