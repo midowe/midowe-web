@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<home-slider-welcome />
 		<home-trending />
+		<home-slider-welcome />
 		<home-register />
 		<home-categories />
 		<home-recent />

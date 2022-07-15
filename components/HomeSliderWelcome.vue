@@ -1,5 +1,5 @@
 <template>
-	<section>
+	<section class="pt-0">
 		<div class="container">
 			<Splide :options="{ rewind: true }" aria-label="My Favorite Images">
 				<SplideSlide>
