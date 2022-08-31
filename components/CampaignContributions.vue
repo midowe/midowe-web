@@ -11,7 +11,14 @@
 					v-for="donation in state.donations"
 					:key="donation.id"
 				>
-					<h4>{{ formatMoney(donation.attributes.amount) }}</h4>
+					<h4>
+						<span v-if="campaign.attributes.hide_donated_amount"
+							>+1 <i class="ti-heart"></i
+						></span>
+						<span v-if="!campaign.attributes.hide_donated_amount">{{
+							formatMoney(donation.attributes.amount)
+						}}</span>
+					</h4>
 					<div>
 						<h5>
 							{{ formatFullDate(donation.attributes.createdAt) }}
