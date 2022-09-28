@@ -3,6 +3,14 @@ image: node:16
 variables:
   TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
 
+# Cache modules in between jobs
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - .nuxt
+    - .yarn
+    - .iac/.terraform
+
 stages:
   - all-lint
   - src-build
@@ -20,6 +28,8 @@ dev-src-build:
   script:
     - export ENDPOINT_CMS=https://cms.dev.midowe.co.mz/api
     - export ENDPOINT_ACCOUTING=https://eugqgyjdksk2hoi7rj6b23zjti0grskw.lambda-url.af-south-1.on.aws
+    - yarn set version stable
+    - yarn -v
     - rm -rf node_modules && yarn install
     - yarn build
   artifacts:
@@ -33,6 +43,8 @@ prd-src-build:
   script:
     - export ENDPOINT_CMS=https://cms.midowe.co.mz/api
     - export ENDPOINT_ACCOUTING=https://xlhofsmgf4o3xtpleqam77sd240braxu.lambda-url.af-south-1.on.aws
+    - yarn set version stable
+    - yarn -v
     - rm -rf node_modules && yarn install
     - yarn build
   artifacts:
