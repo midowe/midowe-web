@@ -30,7 +30,7 @@ dev-src-build:
     - export ENDPOINT_ACCOUTING=https://eugqgyjdksk2hoi7rj6b23zjti0grskw.lambda-url.af-south-1.on.aws
     - yarn set version stable
     - yarn -v
-    - yarn install --immutable
+    - yarn install
     - yarn build
   artifacts:
     paths:
@@ -45,7 +45,7 @@ prd-src-build:
     - export ENDPOINT_ACCOUTING=https://xlhofsmgf4o3xtpleqam77sd240braxu.lambda-url.af-south-1.on.aws
     - yarn set version stable
     - yarn -v
-    - yarn install --immutable
+    - yarn install
     - yarn build
   artifacts:
     paths:
