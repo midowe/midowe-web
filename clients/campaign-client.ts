@@ -19,6 +19,7 @@ interface CampaignAttributes {
 	fundraiser: FundraiserData;
 	thank_you_message: string;
 	verified: boolean;
+	hide_donated_amount: boolean;
 }
 
 interface ImagesData {

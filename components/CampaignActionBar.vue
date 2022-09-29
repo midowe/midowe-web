@@ -45,7 +45,7 @@
 					<hr />
 					<ul class="stats">
 						<li>Contribuições: {{ campaign.attributes.total_donations }}</li>
-						<li>
+						<li v-if="!campaign.attributes.hide_donated_amount">
 							Angariado: {{ formatMoney(campaign.attributes.total_amount) }}
 							<span class="hide-sm" v-if="campaign.attributes.target_amount > 0"
 								>({{

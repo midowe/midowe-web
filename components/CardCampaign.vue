@@ -7,29 +7,34 @@
 			></div>
 			<div class="text">
 				<h1>{{ props.campaign.attributes.title }}</h1>
-				<p
-					v-if="
-						props.campaign.attributes.target_amount === 0 ||
-						!campaign.attributes.target_date
-					"
-				>
-					{{ campaign.attributes.total_donations }} pessoas doaram
-					{{ formatMoney(props.campaign.attributes.total_amount) }}
-				</p>
-				<p
-					v-if="
-						props.campaign.attributes.target_amount > 0 &&
-						campaign.attributes.target_date != undefined
-					"
-				>
-					{{
-						formatPercent(
-							props.campaign.attributes.target_amount,
-							props.campaign.attributes.total_amount
-						)
-					}}
-					- Meta: {{ formatMoney(props.campaign.attributes.target_amount) }}
-				</p>
+				<div v-if="campaign.attributes.hide_donated_amount">
+					<p>{{ campaign.attributes.total_donations }} apoiaram esta causa</p>
+				</div>
+				<div v-if="!campaign.attributes.hide_donated_amount">
+					<p
+						v-if="
+							props.campaign.attributes.target_amount === 0 ||
+							!campaign.attributes.target_date
+						"
+					>
+						{{ campaign.attributes.total_donations }} pessoas doaram
+						{{ formatMoney(props.campaign.attributes.total_amount) }}
+					</p>
+					<p
+						v-if="
+							props.campaign.attributes.target_amount > 0 &&
+							campaign.attributes.target_date != undefined
+						"
+					>
+						{{
+							formatPercent(
+								props.campaign.attributes.target_amount,
+								props.campaign.attributes.total_amount
+							)
+						}}
+						- Meta: {{ formatMoney(props.campaign.attributes.target_amount) }}
+					</p>
+				</div>
 				<div v-if="props.campaign.attributes.category != undefined">
 					<span class="tag">
 						{{ props.campaign.attributes.category.data.attributes.name }}
