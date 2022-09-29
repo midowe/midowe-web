@@ -4,11 +4,11 @@ variables:
   TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
 
 stages:
-  - all-lint
-  - src-build
-  - docker-build
-  - dev-iac-plan
+  - dev-src-build
+  - dev-docker-build
   - dev-iac-apply
+  - prd-src-build
+  - prd-docker-build
   - prd-iac-plan
   - prd-iac-apply
 
@@ -16,7 +16,7 @@ default:
   interruptible: true
 
 dev-src-build:
-  stage: src-build
+  stage: dev-src-build
   script:
     - export ENDPOINT_CMS=https://cms.dev.midowe.co.mz/api
     - export ENDPOINT_ACCOUTING=https://eugqgyjdksk2hoi7rj6b23zjti0grskw.lambda-url.af-south-1.on.aws
@@ -26,23 +26,10 @@ dev-src-build:
     paths:
       - .output
   only:
-    - develop
-
-prd-src-build:
-  stage: src-build
-  script:
-    - export ENDPOINT_CMS=https://cms.midowe.co.mz/api
-    - export ENDPOINT_ACCOUTING=https://xlhofsmgf4o3xtpleqam77sd240braxu.lambda-url.af-south-1.on.aws
-    - rm -rf node_modules && yarn install
-    - yarn build
-  artifacts:
-    paths:
-      - .output
-  only:
     - main
 
-docker-build:
-  stage: docker-build
+dev-docker-build:
+  stage: dev-docker-build
   image: docker:latest
   services:
     - docker:dind
@@ -51,7 +38,6 @@ docker-build:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_COMMIT
   only:
-    - develop
     - main
 
 .tf-init-dev:
@@ -79,35 +65,14 @@ docker-build:
       -backend-config="key=midowe-web-dev/terraform.tfstate" \
       -force-copy
 
-dev-iac-lint:
-  stage: all-lint
-  extends: .tf-init-dev
-  script:
-    - terraform -chdir=.iac validate
-  artifacts:
-    paths:
-      - ".iac/.terraform/providers"
-
-dev-iac-plan:
-  stage: dev-iac-plan
-  extends: .tf-init-dev
-  script:
-    - terraform -chdir=.iac plan -out=dev-env.tfplan
-    - terraform -chdir=.iac show -json dev-env.tfplan > .iac/dev-env.tfplan.json
-  artifacts:
-    paths:
-      - ".out/*"
-      - ".iac/*.json"
-      - ".iac/*.tfplan"
-      - ".iac/.terraform/providers"
-  only:
-    - develop
-
 dev-iac-apply:
   stage: dev-iac-apply
   extends: .tf-init-dev
   interruptible: false
   script:
+    - terraform -chdir=.iac validate
+    - terraform -chdir=.iac plan -out=dev-env.tfplan
+    - terraform -chdir=.iac show -json dev-env.tfplan > .iac/dev-env.tfplan.json
     - terraform -chdir=.iac apply -auto-approve dev-env.tfplan
     - terraform -chdir=.iac output -json > .iac/dev-env.tfoutput.json
   artifacts:
@@ -117,7 +82,33 @@ dev-iac-apply:
       - ".iac/*.tfplan"
       - ".iac/.terraform/providers"
   only:
-    - develop
+    - main
+
+prd-src-build:
+  stage: prd-src-build
+  script:
+    - export ENDPOINT_CMS=https://cms.midowe.co.mz/api
+    - export ENDPOINT_ACCOUTING=https://xlhofsmgf4o3xtpleqam77sd240braxu.lambda-url.af-south-1.on.aws
+    - rm -rf node_modules && yarn install
+    - yarn build
+  artifacts:
+    paths:
+      - .output
+  only:
+    - main
+  when: manual
+
+prd-docker-build:
+  stage: prd-docker-build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker build -t $TAG_COMMIT .
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+    - docker push $TAG_COMMIT
+  only:
+    - main
 
 .tf-init-prd:
   before_script:
@@ -143,15 +134,6 @@ dev-iac-apply:
       -backend=true \
       -backend-config="key=midowe-web-prd/terraform.tfstate" \
       -force-copy
-
-prd-iac-lint:
-  stage: all-lint
-  extends: .tf-init-prd
-  script:
-    - terraform -chdir=.iac validate
-  artifacts:
-    paths:
-      - ".iac/.terraform/providers"
 
 prd-iac-plan:
   stage: prd-iac-plan
