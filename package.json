@@ -20,5 +20,6 @@
 		"bootstrap": "5.2.0-beta1",
 		"markdown-it": "^13.0.1",
 		"vue-gtag-next": "^1.14.0"
-	}
+	},
+	"packageManager": "yarn@3.2.3"
 }
