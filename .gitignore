@@ -7,7 +7,5 @@ node_modules
 .env
 .idea
 .DS_Store
-.yarn
-.pnp.*
 .iac/.terraform**
 iac/**.tfstate

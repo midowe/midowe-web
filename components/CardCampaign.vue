@@ -8,7 +8,7 @@
 			<div class="text">
 				<h1>{{ props.campaign.attributes.title }}</h1>
 				<div v-if="campaign.attributes.hide_donated_amount">
-					<p>{{ campaign.attributes.total_donations }} apoiaram esta causa</p>
+					<p>{{ campaign.attributes.total_donations }} apoiam esta causa</p>
 				</div>
 				<div v-if="!campaign.attributes.hide_donated_amount">
 					<p

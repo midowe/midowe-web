@@ -39,12 +39,4 @@ Locally preview production build:
 npm run preview
 ```
 
-Checkout for the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.
-
-## .env
-
-```property
-ENDPOINT_CMS = https://cms.dev.midowe.co.mz/api
-
-ENDPOINT_ACCOUTING = https://eugqgyjdksk2hoi7rj6b23zjti0grskw.lambda-url.af-south-1.on.aws
-```
+Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.

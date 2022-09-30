@@ -20,10 +20,8 @@ dev-src-build:
   script:
     - export ENDPOINT_CMS=https://cms.dev.midowe.co.mz/api
     - export ENDPOINT_ACCOUTING=https://eugqgyjdksk2hoi7rj6b23zjti0grskw.lambda-url.af-south-1.on.aws
-    - yarn set version stable
-    - yarn -v
-    - yarn install
-    - yarn build
+    - npm ci
+    - npm run build
   artifacts:
     paths:
       - .output
@@ -91,10 +89,8 @@ prd-src-build:
   script:
     - export ENDPOINT_CMS=https://cms.midowe.co.mz/api
     - export ENDPOINT_ACCOUTING=https://xlhofsmgf4o3xtpleqam77sd240braxu.lambda-url.af-south-1.on.aws
-    - yarn set version stable
-    - yarn -v
-    - yarn install
-    - yarn build
+    - npm ci
+    - npm run build
   artifacts:
     paths:
       - .output
