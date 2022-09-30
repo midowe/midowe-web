@@ -1,8 +1,5 @@
 image: node:16
 
-variables:
-  TAG_COMMIT: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
-
 stages:
   - dev-src-build
   - dev-docker-build
@@ -34,9 +31,9 @@ dev-docker-build:
   services:
     - docker:dind
   script:
-    - docker build -t $TAG_COMMIT .
+    - docker build -t $CI_REGISTRY_IMAGE/develop:latest .
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push $TAG_COMMIT
+    - docker push $CI_REGISTRY_IMAGE/develop:latest
   only:
     - main
 
@@ -46,7 +43,7 @@ dev-docker-build:
     # Configs and Secrets
     - export TF_VAR_environment=dev
     - export TF_VAR_container_port=33000
-    - export TF_VAR_image_tag=$TAG_COMMIT
+    - export TF_VAR_image_tag=$CI_REGISTRY_IMAGE/develop:latest
     - export TF_VAR_registry_username=$REGISTRY_USERNAME
     - export TF_VAR_registry_password=$REGISTRY_PASSWORD
     # Setup SSH
@@ -96,7 +93,6 @@ prd-src-build:
       - .output
   only:
     - main
-  when: manual
 
 prd-docker-build:
   stage: prd-docker-build
@@ -104,9 +100,9 @@ prd-docker-build:
   services:
     - docker:dind
   script:
-    - docker build -t $TAG_COMMIT .
+    - docker build -t $CI_REGISTRY_IMAGE/main:latest .
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
-    - docker push $TAG_COMMIT
+    - docker push $CI_REGISTRY_IMAGE/main:latest
   dependencies:
     - prd-src-build
   only:
@@ -118,7 +114,7 @@ prd-docker-build:
     # Configs and Secrets
     - export TF_VAR_environment=prd
     - export TF_VAR_container_port=33500
-    - export TF_VAR_image_tag=$TAG_COMMIT
+    - export TF_VAR_image_tag=$CI_REGISTRY_IMAGE/main:latest
     - export TF_VAR_registry_username=$REGISTRY_USERNAME
     - export TF_VAR_registry_password=$REGISTRY_PASSWORD
     # Setup SSH
