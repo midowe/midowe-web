@@ -107,6 +107,8 @@ prd-docker-build:
     - docker build -t $TAG_COMMIT .
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
     - docker push $TAG_COMMIT
+  dependencies:
+    - prd-src-build
   only:
     - main
 
@@ -147,6 +149,8 @@ prd-iac-plan:
       - ".iac/*.json"
       - ".iac/*.tfplan"
       - ".iac/.terraform/providers"
+  dependencies:
+    - prd-docker-build
   only:
     - main
 
@@ -163,6 +167,8 @@ prd-iac-apply:
       - ".iac/*.json"
       - ".iac/*.tfplan"
       - ".iac/.terraform/providers"
+  dependencies:
+    - prd-iac-plan
   only:
     - main
   when: manual
